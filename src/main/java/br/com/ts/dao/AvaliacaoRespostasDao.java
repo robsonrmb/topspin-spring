@@ -1,9 +1,10 @@
 package br.com.ts.dao;
 
+import org.springframework.stereotype.Repository;
+
 import br.com.ts.domain.AvaliacaoRespostas;
 
-public interface AvaliacaoRespostasDao {
-	
-	void save(AvaliacaoRespostas avaliacaoRespostas);
+@Repository
+public class AvaliacaoRespostasDaoImpl extends AbstractDao<AvaliacaoRespostas, Long> implements AvaliacaoRespostasDao {
 
 }
