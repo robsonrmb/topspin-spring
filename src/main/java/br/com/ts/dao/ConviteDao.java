@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.ts.domain.Convite;
 
 @Repository
-public class ConviteDaoImpl extends AbstractDao<Convite, Long> implements ConviteDao {
-
-	@Override
+public interface ConviteDao extends JpaRepository<Convite, Long> {
+	/*
 	public List<Convite> listaPorUsuarioEStatus(Convite convite) {
 		String query = "SELECT c FROM Convite c where 1=1";
 		if (convite.getUsuario() != null && convite.getUsuario().getId() != 0) {
@@ -95,5 +95,5 @@ public class ConviteDaoImpl extends AbstractDao<Convite, Long> implements Convit
 		long valor = q.getSingleResult();
 		return Integer.parseInt(valor+"");
 	}
-
+	*/
 }

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ts.bean.FormJogo;
 import br.com.ts.domain.Jogo;
-import br.com.ts.service.JogoServiceImpl;
+import br.com.ts.dto.JogoDTO;
+import br.com.ts.service.JogoService;
 
 @CrossOrigin()
 @RestController
@@ -26,10 +26,10 @@ import br.com.ts.service.JogoServiceImpl;
 public class JogoController {
 	
 	@Autowired
-	private JogoServiceImpl jogoService;
+	private JogoService jogoService;
 	
 	@PostMapping(value="/add")
-    public ResponseEntity<Void> adiciona(@RequestBody FormJogo formJogo){
+    public ResponseEntity<Void> adiciona(@RequestBody JogoDTO formJogo){
 		Jogo jogo = jogoService.salva(formJogo);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 		/*
@@ -42,27 +42,27 @@ public class JogoController {
     }
 	
 	@GetMapping(value="/ultimos-jogos")
-	public ResponseEntity<FormJogo> getUltimosJogosDoUsuario(@RequestParam(name="usuario", required=true) Long idUsuario,
+	public ResponseEntity<JogoDTO> getUltimosJogosDoUsuario(@RequestParam(name="usuario", required=true) Long idUsuario,
 															 @RequestParam(name="qtd", required=true) int qtd) {
 		
 		if (qtd == 0) {
 			qtd = 5;
 		}
-		FormJogo fj = jogoService.buscaUltimosJogosPorUsuario(idUsuario, qtd);
-		return new ResponseEntity<FormJogo>(fj, HttpStatus.OK);	
+		JogoDTO fj = jogoService.buscaUltimosJogosPorUsuario(idUsuario, qtd);
+		return new ResponseEntity<JogoDTO>(fj, HttpStatus.OK);	
 	}
 	
 	@GetMapping(value="/usuario/{id}")
-	public ResponseEntity<List<FormJogo>> getJogosDoUsuario(@PathVariable("id") Long id) {
+	public ResponseEntity<List<JogoDTO>> getJogosDoUsuario(@PathVariable("id") Long id) {
 		List<Jogo> listaDeJogos = jogoService.listaPorUsuario(id);
-		List<FormJogo> lista = converteJogosParaFormJogo(listaDeJogos);
-		return new ResponseEntity<List<FormJogo>>(lista, HttpStatus.OK);	
+		List<JogoDTO> lista = converteJogosParaFormJogo(listaDeJogos);
+		return new ResponseEntity<List<JogoDTO>>(lista, HttpStatus.OK);	
 	}
 
-	private List<FormJogo> converteJogosParaFormJogo(List<Jogo> listaDeJogos) {
-		List<FormJogo> lista_fj = new ArrayList<FormJogo>();
+	private List<JogoDTO> converteJogosParaFormJogo(List<Jogo> listaDeJogos) {
+		List<JogoDTO> lista_fj = new ArrayList<JogoDTO>();
 		for (Jogo jogo: listaDeJogos) {
-			FormJogo fj = new FormJogo();
+			JogoDTO fj = new JogoDTO();
 			fj.setId(jogo.getId());
 			fj.setIdUsuario(jogo.getUsuario().getId());
 			

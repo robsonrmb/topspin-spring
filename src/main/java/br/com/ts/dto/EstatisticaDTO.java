@@ -1,13 +1,13 @@
-package br.com.ts.bean;
+package br.com.ts.dto;
 
-public class FormEstatistica {
+public class EstatisticaDTO {
 
 	private long id;
 	private long idUsuario;
 	private int ano;
 	private String nomeTipoAvaliacao;
 	
-	public FormEstatistica() {}
+	public EstatisticaDTO() {}
 
 	public long getId() {
 		return id;

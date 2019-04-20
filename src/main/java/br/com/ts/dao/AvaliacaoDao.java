@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.ts.domain.Avaliacao;
 
 @Repository
-public class AvaliacaoDaoImpl extends AbstractDao<Avaliacao, Long> implements AvaliacaoDao {
-
-	@Override
+public interface AvaliacaoDao extends JpaRepository<Avaliacao, Long> {
+	/*
 	public List<Avaliacao> listaPorAvaliadoEStatus(Avaliacao avaliacao) {
 		String query = "SELECT a FROM Avaliacao a where 1=1";
 		if (avaliacao.getAvaliado() != null && avaliacao.getAvaliado().getId() != 0) {
@@ -43,5 +43,5 @@ public class AvaliacaoDaoImpl extends AbstractDao<Avaliacao, Long> implements Av
 		long valor = q.getSingleResult();
 		return Integer.parseInt(valor+"");
 	}
-	
+	*/
 }

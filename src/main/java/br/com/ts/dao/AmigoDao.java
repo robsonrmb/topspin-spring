@@ -4,15 +4,16 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.ts.bean.FormUsuarioAmigo;
 import br.com.ts.domain.Amigo;
 import br.com.ts.domain.Usuario;
+import br.com.ts.dto.UsuarioAmigoDTO;
 
 @Repository
-public class AmigoDaoImpl extends AbstractDao<Amigo, Long> {
-
+public interface AmigoDao extends JpaRepository<Amigo, Long> {
+	/*
 	public Amigo buscaAmigo(FormUsuarioAmigo formUsuarioAmigo) {
 		TypedQuery<Amigo> q = getEntityManager().createNamedQuery("busca.porUsuarioEAmigo", Amigo.class); 
 		q.setParameter("idUsuario", formUsuarioAmigo.getIdUsuario());
@@ -30,5 +31,5 @@ public class AmigoDaoImpl extends AbstractDao<Amigo, Long> {
 		q.setParameter("id", usuario.getId());
 		return q.getResultList();
 	}
-
+	*/
 }

@@ -1,8 +1,8 @@
-package br.com.ts.bean;
+package br.com.ts.dto;
 
 import javax.validation.constraints.NotBlank;
 
-public class FormUsuarioAmigo {
+public class UsuarioAmigoDTO {
 
 	private long id;
 	@NotBlank
@@ -10,16 +10,16 @@ public class FormUsuarioAmigo {
 	@NotBlank
 	private long idAmigo;
 	
-	public FormUsuarioAmigo() {}
+	public UsuarioAmigoDTO() {}
 	
-	public FormUsuarioAmigo(long id, long idUsuario, long idAmigo) {
+	public UsuarioAmigoDTO(long id, long idUsuario, long idAmigo) {
 		super();
 		this.id = id;
 		this.idUsuario = idUsuario;
 		this.idAmigo = idAmigo;
 	}
 	
-	public FormUsuarioAmigo(long idUsuario, long idAmigo) {
+	public UsuarioAmigoDTO(long idUsuario, long idAmigo) {
 		super();
 		this.idUsuario = idUsuario;
 		this.idAmigo = idAmigo;

@@ -1,8 +1,8 @@
-package br.com.ts.bean;
+package br.com.ts.dto;
 
 import java.util.Date;
 
-public class FormJogo {
+public class JogoDTO {
 
 	private long id;
 	private long idUsuario;
@@ -16,7 +16,7 @@ public class FormJogo {
 	private String ultimosJogos;
 	private String dataJogoFormatada;
 	
-	public FormJogo() {}
+	public JogoDTO() {}
 
 	public long getId() {
 		return id;

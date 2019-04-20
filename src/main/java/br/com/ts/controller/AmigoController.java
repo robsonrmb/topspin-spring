@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ts.bean.FormUsuarioAmigo;
 import br.com.ts.domain.Usuario;
-import br.com.ts.service.AmigoServiceImpl;
+import br.com.ts.dto.UsuarioAmigoDTO;
+import br.com.ts.service.AmigoService;
 
 @CrossOrigin
 @RestController
@@ -26,7 +26,7 @@ import br.com.ts.service.AmigoServiceImpl;
 public class AmigoController {
 	
 	@Autowired
-	private AmigoServiceImpl amigoService;
+	private AmigoService amigoService;
 
 	@GetMapping(value="/{id}")
     public ResponseEntity<List<Usuario>> amigosPorUsuario(@PathVariable long id) {
@@ -38,13 +38,13 @@ public class AmigoController {
     }
 	
 	@PostMapping(value="/add")
-	public ResponseEntity<?> adiciona(@RequestBody @Valid FormUsuarioAmigo formUsuarioAmigo) {
+	public ResponseEntity<?> adiciona(@RequestBody @Valid UsuarioAmigoDTO formUsuarioAmigo) {
 		amigoService.salva(formUsuarioAmigo);
 	    return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
   	
 	@PostMapping(value="/remove")
-    public ResponseEntity<Void> remove(@RequestBody FormUsuarioAmigo formUsuarioAmigo){
+    public ResponseEntity<Void> remove(@RequestBody UsuarioAmigoDTO formUsuarioAmigo){
       	amigoService.remove(formUsuarioAmigo);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

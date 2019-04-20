@@ -1,13 +1,13 @@
-package br.com.ts.bean;
+package br.com.ts.dto;
 
-public class FormRespPerformance {
+public class RespPerformanceDTO {
 
 	private int ruim;
 	private int regular;
 	private int bom;
 	private int otimo;
 	
-	public FormRespPerformance() {}
+	public RespPerformanceDTO() {}
 
 	public int getRuim() {
 		return ruim;

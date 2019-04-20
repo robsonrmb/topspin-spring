@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.ts.domain.Jogo;
 
 @Repository
-public class JogoDaoImpl extends AbstractDao<Jogo, Long> implements JogoDao {
-
-	@Override
+public interface JogoDao extends JpaRepository<Jogo, Long> {
+	/*
 	public List<Jogo> listaPorUsuario(Long id) {
 		String query = "SELECT j FROM Jogo j where 1=1";
 		if (id != null && id != 0) {
@@ -52,5 +52,5 @@ public class JogoDaoImpl extends AbstractDao<Jogo, Long> implements JogoDao {
 		long valor = q.getSingleResult();
 		return Integer.parseInt(valor+"");
 	}
-
+	 */
 }

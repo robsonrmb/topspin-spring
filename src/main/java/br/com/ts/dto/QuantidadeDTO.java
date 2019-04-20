@@ -1,12 +1,12 @@
-package br.com.ts.bean;
+package br.com.ts.dto;
 
-public class Quantidade {
+public class QuantidadeDTO {
 
 	private int quantidade;
 	
-	public Quantidade() {}
+	public QuantidadeDTO() {}
 	
-	public Quantidade(int quantidade) {
+	public QuantidadeDTO(int quantidade) {
 		super();
 		this.quantidade = quantidade;
 	}

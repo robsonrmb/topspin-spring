@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ts.domain.Usuario;
-import br.com.ts.service.UsuarioServiceImpl;
+import br.com.ts.service.UsuarioService;
 
 @CrossOrigin()
 @RestController
@@ -26,7 +26,7 @@ import br.com.ts.service.UsuarioServiceImpl;
 public class UsuarioController {
 	
 	@Autowired
-	private UsuarioServiceImpl usuarioService;
+	private UsuarioService usuarioService;
 
 	@GetMapping
 	public ResponseEntity<List<Usuario>> getListaTodos() {

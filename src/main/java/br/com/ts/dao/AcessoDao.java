@@ -4,14 +4,15 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.ts.domain.Acesso;
 
 @Repository
-public class AcessoDaoImpl extends AbstractDao<Acesso, Long> implements AcessoDao {
-
-	@Override
+public interface AcessoDao extends JpaRepository<Acesso, Long> {
+	
+	/*
 	public boolean isExisteUsuario(Acesso acesso) {
 		
 		TypedQuery<Acesso> query = getEntityManager().createQuery("from Acesso where email = :email and senha = :senha", Acesso.class);
@@ -26,5 +27,5 @@ public class AcessoDaoImpl extends AbstractDao<Acesso, Long> implements AcessoDa
 		}
 		
 	}
-
+ 	*/
 }

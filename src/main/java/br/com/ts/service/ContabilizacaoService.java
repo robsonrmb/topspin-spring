@@ -15,7 +15,7 @@ import br.com.ts.domain.Jogo;
 import br.com.ts.domain.Usuario;
 
 @Service @Transactional(readOnly = false)
-public class ContabilizacaoServiceImpl {
+public class ContabilizacaoService {
 
 	@Autowired
 	private ContabilizacaoDao contabilizacaoDao;
@@ -28,8 +28,7 @@ public class ContabilizacaoServiceImpl {
 	
 	public void salva(Contabilizacao contabilizacao, String tipo) {
 		
-		List<Contabilizacao> listaDeContabilizacao = contabilizacaoDao
-			.buscaPorUsuarioAno(contabilizacao.getUsuario().getId(), contabilizacao.getAno());
+		List<Contabilizacao> listaDeContabilizacao = null; //TODO contabilizacaoDao.buscaPorUsuarioAno(contabilizacao.getUsuario().getId(), contabilizacao.getAno());
 		
 		if (listaDeContabilizacao != null && listaDeContabilizacao.size() > 1) {
 			System.out.println("Erro na gravação da contabilizacao... Verificar!!!");
@@ -57,8 +56,7 @@ public class ContabilizacaoServiceImpl {
 
 	public int countContabilizacaoGeralDeAvaliacoesAceitasPorUsuario(Long idUsuario) {
 		
-		List<Contabilizacao> listaDeContabilizacao = contabilizacaoDao
-				.buscaPorUsuarioAno(idUsuario, 0);
+		List<Contabilizacao> listaDeContabilizacao = null; //TODO contabilizacaoDao.buscaPorUsuarioAno(idUsuario, 0);
 		
 		int contador = 0;
 		for (Contabilizacao c: listaDeContabilizacao) {
@@ -69,8 +67,7 @@ public class ContabilizacaoServiceImpl {
 	
 	public int countContabilizacaoGeralDeAvaliacoesRecusadasPorUsuario(Long idUsuario) {
 		
-		List<Contabilizacao> listaDeContabilizacao = contabilizacaoDao
-				.buscaPorUsuarioAno(idUsuario, 0);
+		List<Contabilizacao> listaDeContabilizacao = null; //TODO contabilizacaoDao.buscaPorUsuarioAno(idUsuario, 0);
 		
 		int contador = 0;
 		for (Contabilizacao c: listaDeContabilizacao) {
@@ -86,7 +83,7 @@ public class ContabilizacaoServiceImpl {
 		Convite convite = new Convite();
 		convite.setConvidado(usuario);
 		convite.setStatus("A");
-		int qtd = conviteDao.countPorConvidadoEStatus(convite);
+		int qtd = 0; //TODO conviteDao.countPorConvidadoEStatus(convite);
 		return qtd;
 	}
 
@@ -97,7 +94,7 @@ public class ContabilizacaoServiceImpl {
 		Convite convite = new Convite();
 		convite.setConvidado(usuario);
 		convite.setStatus("R");
-		int qtd = conviteDao.countPorConvidadoEStatus(convite);
+		int qtd = 0; //TODO conviteDao.countPorConvidadoEStatus(convite);
 		return qtd;
 	}
 
@@ -107,7 +104,7 @@ public class ContabilizacaoServiceImpl {
 		
 		Convite convite = new Convite();
 		convite.setUsuario(usuario);
-		int qtd = conviteDao.countConvitesEnviadosPorUsuario(convite);
+		int qtd = 0; //TODO conviteDao.countConvitesEnviadosPorUsuario(convite);
 		return qtd;
 	}
 
@@ -117,7 +114,7 @@ public class ContabilizacaoServiceImpl {
 		
 		Jogo jogo = new Jogo();
 		jogo.setUsuario(usuario);
-		int qtd = jogoDao.countJogosRealizadoPorUsuario(jogo);
+		int qtd = 0; //TODO jogoDao.countJogosRealizadoPorUsuario(jogo);
 		return qtd;
 	}
 

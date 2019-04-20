@@ -4,13 +4,15 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.ts.domain.Usuario;
 
 @Repository
-public class UsuarioDaoImpl extends AbstractDao<Usuario, Long> implements UsuarioDao {
+public interface UsuarioDao extends JpaRepository<Usuario, Long> {
 
+	/*
 	public Usuario buscaPorEmail(String email) {
 		TypedQuery<Usuario> q = getEntityManager().createNamedQuery("busca.porEmail", Usuario.class); 
 		q.setParameter("email", email);
@@ -52,5 +54,5 @@ public class UsuarioDaoImpl extends AbstractDao<Usuario, Long> implements Usuari
 		}
 		return q.getResultList();
 	}
-
+	*/
 }

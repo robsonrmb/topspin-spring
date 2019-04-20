@@ -1,9 +1,9 @@
-package br.com.ts.bean;
+package br.com.ts.dto;
 
 import java.util.Date;
 import java.util.List;
 
-public class FormAvaliacaoResult {
+public class AvaliacaoResultDTO {
 
 	private long id;
 	private long idUsuario;
@@ -16,7 +16,7 @@ public class FormAvaliacaoResult {
 	private String nomeUsuario;
 	private String nomeAvaliado;
 	
-	public FormAvaliacaoResult() {}
+	public AvaliacaoResultDTO() {}
 
 
 	public long getId() {

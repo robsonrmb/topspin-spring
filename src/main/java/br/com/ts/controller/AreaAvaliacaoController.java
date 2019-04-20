@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ts.domain.AreaAvaliacao;
-import br.com.ts.service.AreaAvaliacaoServiceImpl;
+import br.com.ts.service.AreaAvaliacaoService;
 
 @CrossOrigin()
 @RestController
@@ -20,7 +20,7 @@ import br.com.ts.service.AreaAvaliacaoServiceImpl;
 public class AreaAvaliacaoController {
 	
 	@Autowired
-	private AreaAvaliacaoServiceImpl areaAvaliacaoService;
+	private AreaAvaliacaoService areaAvaliacaoService;
 	
 	@GetMapping(value="/ativas")
 	public ResponseEntity<List<AreaAvaliacao>> getAreaAvaliacoes() {

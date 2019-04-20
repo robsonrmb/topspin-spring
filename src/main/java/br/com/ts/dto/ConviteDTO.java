@@ -1,8 +1,8 @@
-package br.com.ts.bean;
+package br.com.ts.dto;
 
 import java.util.Date;
 
-public class FormConvite {
+public class ConviteDTO {
 
 	private long id;
 	private long idUsuario;
@@ -15,7 +15,7 @@ public class FormConvite {
 	private String nomeUsuario;
 	private String nomeConvidado;
 	
-	public FormConvite() {}
+	public ConviteDTO() {}
 
 	public long getId() {
 		return id;

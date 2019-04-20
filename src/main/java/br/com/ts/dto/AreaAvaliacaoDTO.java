@@ -1,14 +1,14 @@
-package br.com.ts.bean;
+package br.com.ts.dto;
 
 import br.com.ts.domain.TipoAvaliacao;
 
-public class FormAreaAvaliacao {
+public class AreaAvaliacaoDTO {
 
 	private long id;
 	private long nome;
 	private TipoAvaliacao tipoAvaliacao;
 	
-	public FormAreaAvaliacao() {}
+	public AreaAvaliacaoDTO() {}
 
 	public long getId() {
 		return id;

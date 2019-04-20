@@ -9,14 +9,14 @@ import br.com.ts.domain.TipoRespostaAvaliacao;
 
 @Service 
 @Transactional(readOnly = false)
-public class TipoRespostaAvaliacaoServiceImpl {
+public class TipoRespostaAvaliacaoService {
 
 	@Autowired
 	private TipoRespostaAvaliacaoDao tipoRespostaAvaliacaoDao;
 	
 	@Transactional(readOnly = true)
 	public TipoRespostaAvaliacao buscaPorNome(String nome) {
-		return tipoRespostaAvaliacaoDao.buscaPorNome(nome);
+		return null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(nome);
 	}
 
 }

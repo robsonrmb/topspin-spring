@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ts.bean.FormCadastroLogin;
 import br.com.ts.domain.Acesso;
+import br.com.ts.dto.CadastroLoginDTO;
 import br.com.ts.error.ResourceBadRequestException;
-import br.com.ts.service.AcessoServiceImpl;
+import br.com.ts.service.AcessoService;
 
 @CrossOrigin
 @RestController
@@ -21,10 +21,10 @@ import br.com.ts.service.AcessoServiceImpl;
 public class AcessoController {
 	
 	@Autowired
-	private AcessoServiceImpl acessoService;
+	private AcessoService acessoService;
 
 	@PostMapping(value="/add")
-    public ResponseEntity<Boolean> adiciona(@RequestBody FormCadastroLogin formCadastroLogin) {
+    public ResponseEntity<Boolean> adiciona(@RequestBody CadastroLoginDTO formCadastroLogin) {
 		acessoService.salva(formCadastroLogin);
         return new ResponseEntity<Boolean>(HttpStatus.CREATED);
     }

@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ts.bean.FormConvite;
-import br.com.ts.bean.Quantidade;
 import br.com.ts.domain.Convite;
 import br.com.ts.domain.Usuario;
-import br.com.ts.service.ConviteServiceImpl;
+import br.com.ts.dto.ConviteDTO;
+import br.com.ts.dto.QuantidadeDTO;
+import br.com.ts.service.ConviteService;
 
 @CrossOrigin()
 @RestController
@@ -29,7 +29,7 @@ import br.com.ts.service.ConviteServiceImpl;
 public class ConviteController {
 	
 	@Autowired
-	private ConviteServiceImpl conviteService;
+	private ConviteService conviteService;
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<Convite> getUsuario(@PathVariable("id") Long id) {
@@ -38,7 +38,7 @@ public class ConviteController {
 	}
 
 	@GetMapping(value="/usuario/{idUsuario}")
-	public ResponseEntity<List<FormConvite>> getConvitesDoUsuario(@PathVariable("idUsuario") Long idUsuario) {
+	public ResponseEntity<List<ConviteDTO>> getConvitesDoUsuario(@PathVariable("idUsuario") Long idUsuario) {
 		Usuario usuario = new Usuario();
 		usuario.setId(idUsuario);
 		
@@ -46,12 +46,12 @@ public class ConviteController {
 		convite.setUsuario(usuario);
 		
 		List<Convite> listaDeConvites = conviteService.listaPorUsuarioEStatus(convite);
-		List<FormConvite> listaFC = converteParaFormConvite(listaDeConvites);
-		return new ResponseEntity<List<FormConvite>>(listaFC, HttpStatus.OK);
+		List<ConviteDTO> listaFC = converteParaFormConvite(listaDeConvites);
+		return new ResponseEntity<List<ConviteDTO>>(listaFC, HttpStatus.OK);
 	}
 
 	@GetMapping(value="/usuario/{idUsuario}/status/{status}")
-	public ResponseEntity<List<FormConvite>> getConvitesDoUsuario(@PathVariable("idUsuario") Long idUsuario,
+	public ResponseEntity<List<ConviteDTO>> getConvitesDoUsuario(@PathVariable("idUsuario") Long idUsuario,
 																  @PathVariable("status") String status) {
 		Usuario usuario = new Usuario();
 		usuario.setId(idUsuario);
@@ -61,12 +61,12 @@ public class ConviteController {
 		convite.setStatus(status);
 		
 		List<Convite> listaDeConvites = conviteService.listaPorUsuarioEStatus(convite);
-		List<FormConvite> listaFC = converteParaFormConvite(listaDeConvites);
-		return new ResponseEntity<List<FormConvite>>(listaFC, HttpStatus.OK);
+		List<ConviteDTO> listaFC = converteParaFormConvite(listaDeConvites);
+		return new ResponseEntity<List<ConviteDTO>>(listaFC, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/convidado/{idConvidado}")
-	public ResponseEntity<List<FormConvite>> getConvitesDoConvidado(@PathVariable("idConvidado") Long idConvidado) {
+	public ResponseEntity<List<ConviteDTO>> getConvitesDoConvidado(@PathVariable("idConvidado") Long idConvidado) {
 		Usuario convidado = new Usuario();
 		convidado.setId(idConvidado);
 		
@@ -74,12 +74,12 @@ public class ConviteController {
 		convite.setConvidado(convidado);
 		
 		List<Convite> listaDeConvites = conviteService.listaPorConvidadoEStatus(convite);
-		List<FormConvite> listaFC = converteParaFormConvite(listaDeConvites);
-		return new ResponseEntity<List<FormConvite>>(listaFC, HttpStatus.OK);
+		List<ConviteDTO> listaFC = converteParaFormConvite(listaDeConvites);
+		return new ResponseEntity<List<ConviteDTO>>(listaFC, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/convidado/{idConvidado}/status/{status}")
-	public ResponseEntity<List<FormConvite>> getConvitesDoConvidado(@PathVariable("idConvidado") Long idConvidado,
+	public ResponseEntity<List<ConviteDTO>> getConvitesDoConvidado(@PathVariable("idConvidado") Long idConvidado,
 																	@PathVariable("status") String status) {
 		Usuario convidado = new Usuario();
 		convidado.setId(idConvidado);
@@ -89,12 +89,12 @@ public class ConviteController {
 		convite.setStatus(status);
 		
 		List<Convite> listaDeConvites = conviteService.listaPorConvidadoEStatus(convite);
-		List<FormConvite> listaFC = converteParaFormConvite(listaDeConvites);
-		return new ResponseEntity<List<FormConvite>>(listaFC, HttpStatus.OK);
+		List<ConviteDTO> listaFC = converteParaFormConvite(listaDeConvites);
+		return new ResponseEntity<List<ConviteDTO>>(listaFC, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/convidado/{idConvidado}/naoPendentes")
-	public ResponseEntity<List<FormConvite>> getConvitesNaoPendentesDoConvidado(@PathVariable("idConvidado") Long idConvidado) {
+	public ResponseEntity<List<ConviteDTO>> getConvitesNaoPendentesDoConvidado(@PathVariable("idConvidado") Long idConvidado) {
 		Usuario convidado = new Usuario();
 		convidado.setId(idConvidado);
 		
@@ -102,12 +102,12 @@ public class ConviteController {
 		convite.setConvidado(convidado);
 		
 		List<Convite> listaDeConvites = conviteService.listaPorConvidadoENaoPendentes(convite);
-		List<FormConvite> listaFC = converteParaFormConvite(listaDeConvites);
-		return new ResponseEntity<List<FormConvite>>(listaFC, HttpStatus.OK);
+		List<ConviteDTO> listaFC = converteParaFormConvite(listaDeConvites);
+		return new ResponseEntity<List<ConviteDTO>>(listaFC, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/convidado/{idConvidado}/countPendentes")
-	public ResponseEntity<Quantidade> getCountPendentesDoConvidado(@PathVariable("idConvidado") Long idConvidado) {
+	public ResponseEntity<QuantidadeDTO> getCountPendentesDoConvidado(@PathVariable("idConvidado") Long idConvidado) {
 		Usuario convidado = new Usuario();
 		convidado.setId(idConvidado);
 		
@@ -115,12 +115,12 @@ public class ConviteController {
 		convite.setConvidado(convidado);
 		
 		int quantidade = conviteService.countPorConvidadoEPendentes(convite);
-		Quantidade q = new Quantidade(quantidade);
-		return new ResponseEntity<Quantidade>(q, HttpStatus.OK);
+		QuantidadeDTO q = new QuantidadeDTO(quantidade);
+		return new ResponseEntity<QuantidadeDTO>(q, HttpStatus.OK);
 	}
 	
 	@PostMapping(value="/add")
-    public ResponseEntity<Void> adiciona(@RequestBody FormConvite formConvite){
+    public ResponseEntity<Void> adiciona(@RequestBody ConviteDTO formConvite){
 		
 		conviteService.salva(formConvite);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -167,10 +167,10 @@ public class ConviteController {
     }
     */
   	
-  	private List<FormConvite> converteParaFormConvite(List<Convite> listaDeConvites) {
-		List<FormConvite> listaFC = new ArrayList<FormConvite>();
+  	private List<ConviteDTO> converteParaFormConvite(List<Convite> listaDeConvites) {
+		List<ConviteDTO> listaFC = new ArrayList<ConviteDTO>();
 		for(Convite c: listaDeConvites) {
-			FormConvite fc = new FormConvite();
+			ConviteDTO fc = new ConviteDTO();
 			fc.setId(c.getId());
 			fc.setIdUsuario(c.getUsuario().getId());
 			fc.setIdConvidado(c.getConvidado().getId());

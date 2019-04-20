@@ -1,6 +1,6 @@
-package br.com.ts.bean;
+package br.com.ts.dto;
 
-public class FormRespQuantidade {
+public class RespQuantidadeDTO {
 
 	private int valor1;
 	private int valor2;
@@ -15,7 +15,7 @@ public class FormRespQuantidade {
 	private int valor11;
 	private int valor12;
 	
-	public FormRespQuantidade() {}
+	public RespQuantidadeDTO() {}
 
 	public int getValor1() {
 		return valor1;

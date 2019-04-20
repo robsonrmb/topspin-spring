@@ -1,6 +1,6 @@
-package br.com.ts.bean;
+package br.com.ts.dto;
 
-public class FormCadastroLogin {
+public class CadastroLoginDTO {
 
 	private String nome;
 	private String email;

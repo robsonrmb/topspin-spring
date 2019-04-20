@@ -9,18 +9,18 @@ import br.com.ts.domain.TipoRespostaEstatistica;
 
 @Service 
 @Transactional(readOnly = false)
-public class TipoRespostaEstatisticaServiceImpl {
+public class TipoRespostaEstatisticaService {
 
 	@Autowired
 	private TipoRespostaEstatisticaDao tipoRespostaEstatisticaDao;
 	
 	@Transactional(readOnly = true)
 	public TipoRespostaEstatistica buscaPorNome(String nome) {
-		return tipoRespostaEstatisticaDao.buscaPorNome(nome);
+		return null; //TODO tipoRespostaEstatisticaDao.buscaPorNome(nome);
 	}
 
 	public TipoRespostaEstatistica findById(long id) {
-		return tipoRespostaEstatisticaDao.findById(id);
+		return tipoRespostaEstatisticaDao.findById(id).get();
 	}
 
 }

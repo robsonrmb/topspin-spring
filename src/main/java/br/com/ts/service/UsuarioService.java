@@ -6,37 +6,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.ts.bean.FormUsuarioAmigo;
-import br.com.ts.dao.AmigoDaoImpl;
+import br.com.ts.dao.AmigoDao;
 import br.com.ts.dao.UsuarioDao;
 import br.com.ts.domain.Amigo;
 import br.com.ts.domain.Usuario;
+import br.com.ts.dto.UsuarioAmigoDTO;
 
 @Service 
 @Transactional(readOnly = false)
-public class UsuarioServiceImpl {
+public class UsuarioService {
 
 	@Autowired
 	private UsuarioDao usuarioDao;
 	
 	@Autowired
-	private AmigoDaoImpl amigoDao;
+	private AmigoDao amigoDao;
 	
 	public void salva(Usuario usuario) {
 		usuarioDao.save(usuario);
 	}
 
 	public void atualiza(Usuario usuario) {
-		usuarioDao.update(usuario);
+		usuarioDao.save(usuario);
 	}
 
 	public void exclui(Long id) {
-		usuarioDao.delete(id);
+		usuarioDao.deleteById(id);
 	}
 
 	@Transactional(readOnly = true)
 	public Usuario buscaPorId(Long id) {
-		return usuarioDao.findById(id);
+		return usuarioDao.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
@@ -46,28 +46,28 @@ public class UsuarioServiceImpl {
 	
 	@Transactional(readOnly = true)
 	public Usuario buscaPorEmail(String email) {
-		return usuarioDao.buscaPorEmail(email);
+		return null; //TODO usuarioDao.buscaPorEmail(email);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<Usuario> listaPorNome(String nome) {
-		return usuarioDao.listaPorNome(nome);
+		return null; //TODO usuarioDao.listaPorNome(nome);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<Usuario> listaPorEstado(String estado) {
-		return usuarioDao.listaPorEstado(estado);
+		return null; //TODO usuarioDao.listaPorEstado(estado);
 	}
 
 	public List<Usuario> listaPorFiltro(Usuario usuario) {
-		return usuarioDao.listaPorFiltro(usuario);
+		return null; //TODO usuarioDao.listaPorFiltro(usuario);
 	}
 	
 	public List<Usuario> listaPorFiltroComFlagAmigo(Usuario usuario) {
-		List<Usuario> lista = usuarioDao.listaPorFiltro(usuario);
+		List<Usuario> lista = null; //TODO usuarioDao.listaPorFiltro(usuario);
 		for (Usuario u: lista) {
-			FormUsuarioAmigo formUsuarioAmigo = new FormUsuarioAmigo(usuario.getId(), u.getId());
-			Amigo amigo = amigoDao.buscaAmigo(formUsuarioAmigo);
+			UsuarioAmigoDTO formUsuarioAmigo = new UsuarioAmigoDTO(usuario.getId(), u.getId());
+			Amigo amigo = null; //TODO amigoDao.buscaAmigo(formUsuarioAmigo);
 			if (amigo != null) {
 				u.setAmigo(true);
 			}else {

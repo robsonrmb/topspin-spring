@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ts.bean.FormAvaliacao;
-import br.com.ts.bean.FormAvaliacaoResult;
-import br.com.ts.bean.Quantidade;
 import br.com.ts.domain.Avaliacao;
 import br.com.ts.domain.Usuario;
-import br.com.ts.service.AvaliacaoServiceImpl;
+import br.com.ts.dto.AvaliacaoDTO;
+import br.com.ts.dto.AvaliacaoResultDTO;
+import br.com.ts.dto.QuantidadeDTO;
+import br.com.ts.service.AvaliacaoService;
 
 @CrossOrigin()
 @RestController
@@ -31,28 +31,28 @@ import br.com.ts.service.AvaliacaoServiceImpl;
 public class AvaliacaoController {
 	
 	@Autowired
-	private AvaliacaoServiceImpl avaliacaoService;
+	private AvaliacaoService avaliacaoService;
 	
 	@PostMapping(value="/add")
-    public ResponseEntity<Void> adiciona(@RequestBody FormAvaliacao formAvaliacao){
+    public ResponseEntity<Void> adiciona(@RequestBody AvaliacaoDTO formAvaliacao){
 		avaliacaoService.salva(formAvaliacao);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 	
 	@PostMapping(value="/add-respostas")
-    public ResponseEntity<Void> adicionaResposta(@RequestBody FormAvaliacaoResult formAvaliacaoResult){
+    public ResponseEntity<Void> adicionaResposta(@RequestBody AvaliacaoResultDTO formAvaliacaoResult){
 		avaliacaoService.salvaRespostas(formAvaliacaoResult);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 	
 	@PutMapping(value="/aceita")
-    public ResponseEntity<Void> aceitaAvaliacao(@RequestBody FormAvaliacao formAvaliacao){
+    public ResponseEntity<Void> aceitaAvaliacao(@RequestBody AvaliacaoDTO formAvaliacao){
       	avaliacaoService.atualiza(formAvaliacao, "A");
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 	
 	@PutMapping(value="/recusa")
-    public ResponseEntity<Void> recusaAvaliacao(@RequestBody FormAvaliacao formAvaliacao){
+    public ResponseEntity<Void> recusaAvaliacao(@RequestBody AvaliacaoDTO formAvaliacao){
       	avaliacaoService.atualiza(formAvaliacao, "R");
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
@@ -65,7 +65,7 @@ public class AvaliacaoController {
     }
   	
   	@GetMapping(value="/recebidas/pendentes")
-	public ResponseEntity<List<FormAvaliacao>> getAvaliacoesRecebidas(@RequestParam(name="usuario", required=true) Long idUsuario) {
+	public ResponseEntity<List<AvaliacaoDTO>> getAvaliacoesRecebidas(@RequestParam(name="usuario", required=true) Long idUsuario) {
 		Usuario usuario = new Usuario();
 		usuario.setId(idUsuario);
 		
@@ -74,12 +74,12 @@ public class AvaliacaoController {
 		avaliacao.setStatus("P");
 		
 		List<Avaliacao> listaDeAvaliacoes = avaliacaoService.listaPorAvaliadoEStatus(avaliacao);
-		List<FormAvaliacao> listaFA = converteParaFormAvaliacao(listaDeAvaliacoes);
-		return new ResponseEntity<List<FormAvaliacao>>(listaFA, HttpStatus.OK);
+		List<AvaliacaoDTO> listaFA = converteParaFormAvaliacao(listaDeAvaliacoes);
+		return new ResponseEntity<List<AvaliacaoDTO>>(listaFA, HttpStatus.OK);
 	}
   	
   	@GetMapping(value="/recebidas")
-  	public ResponseEntity<List<FormAvaliacao>> getAvaliacoes(@RequestParam(name="usuario", required=true) Long idUsuario,
+  	public ResponseEntity<List<AvaliacaoDTO>> getAvaliacoes(@RequestParam(name="usuario", required=true) Long idUsuario,
 															 @RequestParam(name="status", required=false) String status) {
 		Usuario usuario = new Usuario();
 		usuario.setId(idUsuario);
@@ -89,12 +89,12 @@ public class AvaliacaoController {
 		avaliacao.setStatus(status);
 		
 		List<Avaliacao> listaDeAvaliacoes = avaliacaoService.listaPorAvaliadoEStatus(avaliacao);
-		List<FormAvaliacao> listaFA = converteParaFormAvaliacao(listaDeAvaliacoes);
-		return new ResponseEntity<List<FormAvaliacao>>(listaFA, HttpStatus.OK);
+		List<AvaliacaoDTO> listaFA = converteParaFormAvaliacao(listaDeAvaliacoes);
+		return new ResponseEntity<List<AvaliacaoDTO>>(listaFA, HttpStatus.OK);
 	}
   	
   	@GetMapping(value="/recebidas/pendentes/qtd/{idUsuario}")
-	public ResponseEntity<Quantidade> countAvaliacoesDoAvaliadoEPendentes(@PathVariable("idUsuario") Long idUsuario) {
+	public ResponseEntity<QuantidadeDTO> countAvaliacoesDoAvaliadoEPendentes(@PathVariable("idUsuario") Long idUsuario) {
 		Usuario usuario = new Usuario();
 		usuario.setId(idUsuario);
 		
@@ -102,14 +102,14 @@ public class AvaliacaoController {
 		avaliacao.setAvaliado(usuario);
 		
 		int quantidade = avaliacaoService.countPorAvaliadoEPendente(avaliacao);
-		Quantidade q = new Quantidade(quantidade);
-		return new ResponseEntity<Quantidade>(q, HttpStatus.OK);
+		QuantidadeDTO q = new QuantidadeDTO(quantidade);
+		return new ResponseEntity<QuantidadeDTO>(q, HttpStatus.OK);
 	}
     
-    private List<FormAvaliacao> converteParaFormAvaliacao(List<Avaliacao> listaDeAvaliacoes) {
-		List<FormAvaliacao> listaFA = new ArrayList<FormAvaliacao>();
+    private List<AvaliacaoDTO> converteParaFormAvaliacao(List<Avaliacao> listaDeAvaliacoes) {
+		List<AvaliacaoDTO> listaFA = new ArrayList<AvaliacaoDTO>();
 		for(Avaliacao a: listaDeAvaliacoes) {
-			FormAvaliacao fa = new FormAvaliacao();
+			AvaliacaoDTO fa = new AvaliacaoDTO();
 			fa.setId(a.getId());
 			fa.setIdUsuario(a.getAvaliador().getId());
 			fa.setIdAvaliado(a.getAvaliado().getId());

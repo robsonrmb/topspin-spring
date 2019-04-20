@@ -9,14 +9,14 @@ import br.com.ts.domain.TipoEstatistica;
 
 @Service 
 @Transactional(readOnly = false)
-public class TipoEstatisticaServiceImpl {
+public class TipoEstatisticaService {
 
 	@Autowired
 	private TipoEstatisticaDao tipoEstatisticaDao;
 	
 	@Transactional(readOnly = true)
 	public TipoEstatistica buscaPorNome(String nome) {
-		return tipoEstatisticaDao.buscaPorNome(nome);
+		return null; //TODO tipoEstatisticaDao.buscaPorNome(nome);
 	}
 
 }

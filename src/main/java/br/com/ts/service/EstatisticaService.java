@@ -13,21 +13,20 @@ import br.com.ts.domain.Usuario;
 
 @Service 
 @Transactional(readOnly = false)
-public class EstatisticaServiceImpl {
+public class EstatisticaService {
 
 	@Autowired
 	private EstatisticaDao estatisticaDao;
 	
 	@Autowired
-	private TipoEstatisticaServiceImpl tipoEstatisticaService;
+	private TipoEstatisticaService tipoEstatisticaService;
 	
 	@Autowired
-	private UsuarioServiceImpl usuarioService;
+	private UsuarioService usuarioService;
 	
 	public void salva(Estatistica estatistica) {
 		
-		List<Estatistica> listaDeEstatistica = estatisticaDao
-			.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), estatistica.getIdTipoResposta());
+		List<Estatistica> listaDeEstatistica = null; //TODO estatisticaDao.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), estatistica.getIdTipoResposta());
 		
 		if (listaDeEstatistica != null && listaDeEstatistica.size() > 1) {
 			System.out.println("Erro na gravação da estatística... Verificar!!!");
@@ -55,8 +54,7 @@ public class EstatisticaServiceImpl {
 		estatistica.setAno(0);
 		estatistica.setIdTipoEstatistica(te.getId());
 		
-		List<Estatistica> listaDeEstatistica = estatisticaDao
-				.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), 0);
+		List<Estatistica> listaDeEstatistica = null; //TODO estatisticaDao.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), 0);
 		
 		int quantidade = 0;
 		if (listaDeEstatistica != null && listaDeEstatistica.size() > 0) {
@@ -77,8 +75,7 @@ public class EstatisticaServiceImpl {
 		estatistica.setIdTipoEstatistica(idTipoEstatistica);
 		estatistica.setIdTipoResposta(idTipoResposta);
 		
-		List<Estatistica> listaDeEstatistica = estatisticaDao
-				.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), estatistica.getIdTipoResposta());
+		List<Estatistica> listaDeEstatistica = null; //TODO estatisticaDao.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), estatistica.getIdTipoResposta());
 		
 		int quantidade = 0;
 		if (listaDeEstatistica != null && listaDeEstatistica.size() > 0) {

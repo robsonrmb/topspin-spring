@@ -1,10 +1,11 @@
 package br.com.ts.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.ts.domain.AvaliacaoRespostas;
 
 @Repository
-public class AvaliacaoRespostasDaoImpl extends AbstractDao<AvaliacaoRespostas, Long> implements AvaliacaoRespostasDao {
+public interface AvaliacaoRespostasDao extends JpaRepository<AvaliacaoRespostas, Long> {
 
 }

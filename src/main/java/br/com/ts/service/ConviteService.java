@@ -6,19 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.ts.bean.FormConvite;
 import br.com.ts.dao.ConviteDao;
 import br.com.ts.domain.Convite;
 import br.com.ts.domain.Usuario;
+import br.com.ts.dto.ConviteDTO;
 
 @Service 
 @Transactional(readOnly = false)
-public class ConviteServiceImpl {
+public class ConviteService {
 
 	@Autowired
 	private ConviteDao conviteDao;
 	
-	public void salva(FormConvite formConvite) {
+	public void salva(ConviteDTO formConvite) {
 		
 		Usuario usuario = new Usuario();
 		usuario.setId(formConvite.getIdUsuario());
@@ -39,26 +39,26 @@ public class ConviteServiceImpl {
 	}
 
 	public void atualiza(Convite convite) {
-		conviteDao.update(convite);
+		conviteDao.save(convite);
 	}
 	
 	public void aceita(Convite convite) {
-		Convite conv = conviteDao.findById(convite.getId());
+		Convite conv = conviteDao.findById(convite.getId()).get();
 		conv.setStatus("A");
 	}
 
 	public void recusa(Convite convite) {
-		Convite conv = conviteDao.findById(convite.getId());
+		Convite conv = conviteDao.findById(convite.getId()).get();
 		conv.setStatus("R");
 	}
 
 	public void exclui(Long id) {
-		conviteDao.delete(id);
+		conviteDao.deleteById(id);
 	}
 
 	@Transactional(readOnly = true)
 	public Convite buscaPorId(Long id) {
-		return conviteDao.findById(id);
+		return conviteDao.findById(id).get();
 	}
 
 	@Transactional(readOnly = true)
@@ -68,21 +68,21 @@ public class ConviteServiceImpl {
 	
 	@Transactional(readOnly = true)
 	public List<Convite> listaPorUsuarioEStatus(Convite convite) {
-		return conviteDao.listaPorUsuarioEStatus(convite);
+		return null; //TODO conviteDao.listaPorUsuarioEStatus(convite);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<Convite> listaPorConvidadoEStatus(Convite convite) {
-		return conviteDao.listaPorConvidadoEStatus(convite);
+		return null; //TODO conviteDao.listaPorConvidadoEStatus(convite);
 	}
 
 	public List<Convite> listaPorConvidadoENaoPendentes(Convite convite) {
-		return conviteDao.listaPorConvidadoENaoPendentes(convite);
+		return null; //TODO conviteDao.listaPorConvidadoENaoPendentes(convite);
 	}
 	
 	public int countPorConvidadoEPendentes(Convite convite) {
 		convite.setStatus("P");
-		return conviteDao.countPorConvidadoEStatus(convite);
+		return 0; //TODO conviteDao.countPorConvidadoEStatus(convite);
 	}
 
 }
