@@ -27,20 +27,13 @@ public class JogoService {
 	@Autowired
 	private TipoEstatisticaService tipoEstatisticaService;
 	
-	public Jogo insert(JogoDTO formJogo) {
+	public Jogo insert(JogoDTO jogoDTO) {
 		
 		Usuario usuario = new Usuario();
-		usuario.setId(formJogo.getIdUsuario());
+		usuario.setId(jogoDTO.getIdUsuario());
 		
-		Jogo jogo = new Jogo();
+		Jogo jogo = new Jogo(jogoDTO.getData(), jogoDTO.getTipo(), jogoDTO.getResultado(), jogoDTO.getPlacar(), jogoDTO.getQtdTieVencidos(), jogoDTO.getQtdTiePerdidos(), usuario, null);
 		jogo.setId(null);
-		jogo.setUsuario(usuario);
-		jogo.setData(formJogo.getData());
-		jogo.setTipo(formJogo.getTipo());
-		jogo.setResultado(formJogo.getResultado());
-		jogo.setPlacar(formJogo.getPlacar());
-		jogo.setQtdTieVencidos(formJogo.getQtdTieVencidos());
-		jogo.setQtdTiePerdidos(formJogo.getQtdTiePerdidos());
 		
 		jogoDao.save(jogo);
 		
@@ -48,13 +41,13 @@ public class JogoService {
 		Calendar dataAtual = Calendar.getInstance();
 		
 		//VITORIA OU DERROTA
-		gravaEstatisticaVitoriaOuDerrota(formJogo, usuario, dataAtual.get(Calendar.YEAR));
+		gravaEstatisticaVitoriaOuDerrota(jogoDTO, usuario, dataAtual.get(Calendar.YEAR));
 		
 		//TIE BREAK VENCIDO
-		gravaEstatisticaTieBreaksVencidos(formJogo, usuario, dataAtual.get(Calendar.YEAR));
+		gravaEstatisticaTieBreaksVencidos(jogoDTO, usuario, dataAtual.get(Calendar.YEAR));
 		
 		//TIE BREAK PERDIDO
-		gravaEstatisticaTieBreaksPerdidos(formJogo, usuario, dataAtual.get(Calendar.YEAR));
+		gravaEstatisticaTieBreaksPerdidos(jogoDTO, usuario, dataAtual.get(Calendar.YEAR));
 		
 		return jogo;
 	}

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import br.com.ts.dto.JogoDTO;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="JOGO")
@@ -40,6 +42,19 @@ public class Jogo extends AbstractEntity<Long> {
 	private String dataJogoFormatada;
 	
 	public Jogo() {}
+	
+	public Jogo(Date data, String tipo, String resultado, String placar, int qtdTieVencidos, int qtdTiePerdidos,
+			Usuario usuario, Usuario adversario) {
+		super();
+		this.data = data;
+		this.tipo = tipo;
+		this.resultado = resultado;
+		this.placar = placar;
+		this.qtdTieVencidos = qtdTieVencidos;
+		this.qtdTiePerdidos = qtdTiePerdidos;
+		this.usuario = usuario;
+		this.adversario = adversario;
+	}
 
 	public Date getData() {
 		return data;

@@ -2,17 +2,34 @@ package br.com.ts.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
 public class JogoDTO {
 
 	private long id;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private long idUsuario;
 	private long idAdversario;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private Date data;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String tipo;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String resultado;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String placar;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private int qtdTieVencidos;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private int qtdTiePerdidos;
+	
 	private String ultimosJogos;
 	private String dataJogoFormatada;
 	
