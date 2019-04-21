@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,6 +61,12 @@ public class UsuarioService {
 	public List<Usuario> findAll() {
 		return usuarioDao.findAll();
 	}
+	
+	public Page<Usuario> findPage(Integer pagina, Integer linhasPorPagina, String direcao, String ordenacao) {
+		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcao), ordenacao);
+		return usuarioDao.findAll(pageRequest);
+	}
+	
 	
 	//PERSONALIZADOS ###########################################################
 	

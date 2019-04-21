@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ts.domain.Usuario;
@@ -48,7 +50,7 @@ public class UsuarioResource {
     }
   	
   	//SOMENTE ADMINISTRATIVO
-    @DeleteMapping(value="/remove/{id}")
+    @DeleteMapping(value="/{id}")
     public ResponseEntity<Void> remove(@PathVariable Long id){
       	usuarioService.delete(id);
         return ResponseEntity.noContent().build();
@@ -61,6 +63,18 @@ public class UsuarioResource {
       	return ResponseEntity.noContent().build();
   	}
   	
+  	//SOMENTE ADMINISTRATIVO
+  	@GetMapping(value="/page")
+  	public ResponseEntity<Page<Usuario>> getListaTodosPorPaginas(
+  			@RequestParam(value="pagina", defaultValue="0") Integer pagina,
+  			@RequestParam(value="linhasPorPagina", defaultValue="24") Integer linhasPorPagina,
+  			@RequestParam(value="direcao", defaultValue="ASC") String direcao,
+  			@RequestParam(value="ordenacao", defaultValue="nome") String ordenacao) {
+  		
+		Page<Usuario> listaUsuarios = usuarioService.findPage(pagina, linhasPorPagina, direcao, ordenacao);
+		//Page<UsuarioDTO> listDTO = listaUsuarios.map(obj -> new UsuarioDTO(obj));
+		return ResponseEntity.ok().body(listaUsuarios);
+	}
   	
 	
 	//PERSONALIZADOS ################################################################
