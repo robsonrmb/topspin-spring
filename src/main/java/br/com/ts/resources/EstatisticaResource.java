@@ -1,4 +1,4 @@
-package br.com.ts.controller;
+package br.com.ts.resources;
 
 import java.util.Iterator;
 
@@ -23,7 +23,7 @@ import br.com.ts.service.TipoEstatisticaService;
 @CrossOrigin()
 @RestController
 @RequestMapping(value="/estatisticas", produces=MediaType.APPLICATION_JSON_VALUE)
-public class EstatisticaController {
+public class EstatisticaResource {
 	
 	@Autowired
 	private EstatisticaService estatisticaService;

@@ -1,4 +1,6 @@
-package br.com.ts.controller;
+package br.com.ts.resources;
+
+import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.ts.domain.Acesso;
+import br.com.ts.domain.Usuario;
 import br.com.ts.dto.CadastroLoginDTO;
 import br.com.ts.error.ResourceBadRequestException;
 import br.com.ts.service.AcessoService;
@@ -18,21 +22,22 @@ import br.com.ts.service.AcessoService;
 @CrossOrigin
 @RestController
 @RequestMapping(value="/acesso", produces=MediaType.APPLICATION_JSON_VALUE)
-public class AcessoController {
+public class AcessoResource {
 	
 	@Autowired
 	private AcessoService acessoService;
 
-	@PostMapping(value="/add")
-    public ResponseEntity<Boolean> adiciona(@RequestBody CadastroLoginDTO formCadastroLogin) {
-		acessoService.salva(formCadastroLogin);
-        return new ResponseEntity<Boolean>(HttpStatus.CREATED);
+	@PostMapping
+    public ResponseEntity<Usuario> adiciona(@RequestBody CadastroLoginDTO cadastroLoginDTO) {
+		Usuario usuario = acessoService.insert(cadastroLoginDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId()).toUri();
+        return ResponseEntity.created(uri).body(usuario);
     }
 	
 	@PostMapping(value="/existe")
     public ResponseEntity<Boolean> isExisteUsuario(@RequestBody Acesso acesso) {
     	verificaSeUsuarioExiste(acesso);
-        return new ResponseEntity<Boolean>(true, HttpStatus.OK);	
+        return ResponseEntity.ok().body(true);	
     }
 	
 	private void verificaSeUsuarioExiste(Acesso acesso) {

@@ -1,4 +1,4 @@
-package br.com.ts.controller;
+package br.com.ts.resources;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import br.com.ts.service.AreaAvaliacaoService;
 @CrossOrigin()
 @RestController
 @RequestMapping(value="/area-avaliacoes", produces=MediaType.APPLICATION_JSON_VALUE)
-public class AreaAvaliacaoController {
+public class AreaAvaliacaoResource {
 	
 	@Autowired
 	private AreaAvaliacaoService areaAvaliacaoService;

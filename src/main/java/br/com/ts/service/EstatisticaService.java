@@ -45,7 +45,7 @@ public class EstatisticaService {
 
 	public int buscaEstatistica(Long idUsuario, String tipoDaEstatistica) {
 		
-		Usuario usuario = usuarioService.buscaPorId(idUsuario);
+		Usuario usuario = usuarioService.find(idUsuario);
 		
 		TipoEstatistica te = tipoEstatisticaService.buscaPorNome(tipoDaEstatistica);
 		
@@ -67,7 +67,7 @@ public class EstatisticaService {
 	
 	public int buscaEstatistica(Long idUsuario, long idTipoEstatistica, long idTipoResposta) {
 		
-		Usuario usuario = usuarioService.buscaPorId(idUsuario);
+		Usuario usuario = usuarioService.find(idUsuario);
 		
 		Estatistica estatistica = new Estatistica();
 		estatistica.setUsuario(usuario);

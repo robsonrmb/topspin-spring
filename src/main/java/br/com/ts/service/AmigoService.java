@@ -22,23 +22,24 @@ public class AmigoService {
 	@Autowired
 	private UsuarioDao usuarioDao;
 	
-	public void salva(UsuarioAmigoDTO formUsuarioAmigo) {
+	public void insert(UsuarioAmigoDTO formUsuarioAmigo) {
 		Usuario usuario = usuarioDao.findById(formUsuarioAmigo.getIdUsuario()).get();
 		Usuario uAmigo = usuarioDao.findById(formUsuarioAmigo.getIdAmigo()).get();
 		
 		Amigo amigo = new Amigo();
+		amigo.setId(null);
 		amigo.setUsuario(usuario);
 		amigo.setAmigo(uAmigo);
 		
 		amigoDao.save(amigo);
 	}
 
-	public void remove(Long id) {
+	public void delete(Long id) {
 		amigoDao.deleteById(id);
 	}
 	
-	public void remove(UsuarioAmigoDTO formUsuarioAmigo) {
-		Amigo amigo = null; //TODO amigoDao.buscaAmigo(formUsuarioAmigo);
+	public void delete(UsuarioAmigoDTO usuarioAmigoDTO) {
+		Amigo amigo = null; //TODO amigoDao.buscaAmigo(usuarioAmigoDTO);
 		amigoDao.deleteById(amigo.getId());
 	}
 

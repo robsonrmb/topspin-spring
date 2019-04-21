@@ -27,12 +27,13 @@ public class JogoService {
 	@Autowired
 	private TipoEstatisticaService tipoEstatisticaService;
 	
-	public Jogo salva(JogoDTO formJogo) {
+	public Jogo insert(JogoDTO formJogo) {
 		
 		Usuario usuario = new Usuario();
 		usuario.setId(formJogo.getIdUsuario());
 		
 		Jogo jogo = new Jogo();
+		jogo.setId(null);
 		jogo.setUsuario(usuario);
 		jogo.setData(formJogo.getData());
 		jogo.setTipo(formJogo.getTipo());
@@ -98,20 +99,20 @@ public class JogoService {
 		}
 	}
 
-	public void atualiza(Jogo jogo) {
+	public void update(Jogo jogo) {
 		jogoDao.save(jogo);
 	}
 	
-	public void exclui(Long id) {
+	public void delete(Long id) {
 		jogoDao.deleteById(id);
 	}
 
 	@Transactional(readOnly = true)
-	public Jogo buscaPorId(Long id) {
+	public Jogo findById(Long id) {
 		return jogoDao.findById(id).get();
 	}
 
-	public List<Jogo> listaTodos() {
+	public List<Jogo> findAll() {
 		return jogoDao.findAll();
 	}
 

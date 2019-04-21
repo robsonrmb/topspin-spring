@@ -21,26 +21,30 @@ public class AcessoService {
 	@Autowired
 	private UsuarioDao usuarioDao;
 	
-	public void salva(CadastroLoginDTO formCadastroLogin) {
+	public Usuario insert(CadastroLoginDTO cadastroLoginDTO) {
 		
-		Acesso acesso = new Acesso(formCadastroLogin.getEmail(), formCadastroLogin.getSenha());
+		Acesso acesso = new Acesso(cadastroLoginDTO.getEmail(), cadastroLoginDTO.getSenha());
+		acesso.setId(null);
 		acessoDao.save(acesso);
 		
-		Usuario usuario = new Usuario(formCadastroLogin.getNome(), formCadastroLogin.getEmail(), formCadastroLogin.getEstado(), formCadastroLogin.getSexo(), "A");
+		Usuario usuario = new Usuario(cadastroLoginDTO.getNome(), cadastroLoginDTO.getEmail(), cadastroLoginDTO.getEstado(), cadastroLoginDTO.getSexo(), "A");
+		usuario.setId(null);
 		usuarioDao.save(usuario);
+		
+		return usuario;
 	}
 
-	public void atualiza(Acesso usuario) {
+	public void update(Acesso usuario) {
 		acessoDao.save(usuario);
 	}
 
-	public void exclui(Long id) {
+	public void delete(Long id) {
 		acessoDao.deleteById(id);
 	}
 
 	@Transactional(readOnly = true)
-	public Optional<Acesso> buscaPorId(Long id) {
-		return acessoDao.findById(id);
+	public Acesso buscaPorId(Long id) {
+		return acessoDao.findById(id).get();
 	}
 
 	public boolean isExisteUsuario(Acesso acesso) {

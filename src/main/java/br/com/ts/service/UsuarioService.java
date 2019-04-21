@@ -3,6 +3,7 @@ package br.com.ts.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,8 @@ import br.com.ts.dao.UsuarioDao;
 import br.com.ts.domain.Amigo;
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.UsuarioAmigoDTO;
+import br.com.ts.service.exception.DataIntegrityException;
+import br.com.ts.service.exception.ObjectNotFoundException;
 
 @Service 
 @Transactional(readOnly = false)
@@ -22,27 +25,41 @@ public class UsuarioService {
 	@Autowired
 	private AmigoDao amigoDao;
 	
-	public void salva(Usuario usuario) {
+	public void insert(Usuario usuario) {
+		usuario.setId(null);
 		usuarioDao.save(usuario);
 	}
 
-	public void atualiza(Usuario usuario) {
+	public void update(Usuario usuario) {
+		find(usuario.getId());
 		usuarioDao.save(usuario);
 	}
 
-	public void exclui(Long id) {
-		usuarioDao.deleteById(id);
+	public void delete(Long id) {
+		find(id);
+		try {
+			usuarioDao.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir um usuário porque este possui vínculos!!!");
+		}
 	}
 
 	@Transactional(readOnly = true)
-	public Usuario buscaPorId(Long id) {
-		return usuarioDao.findById(id).get();
+	public Usuario find(Long id) {
+		Usuario usuario = usuarioDao.findById(id).get();
+		if (usuario == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Usuario.class.getName());
+		}
+		return usuario;
 	}
 
 	@Transactional(readOnly = true)
-	public List<Usuario> listaTodos() {
+	public List<Usuario> findAll() {
 		return usuarioDao.findAll();
 	}
+	
+	//PERSONALIZADOS ###########################################################
 	
 	@Transactional(readOnly = true)
 	public Usuario buscaPorEmail(String email) {
@@ -78,7 +95,7 @@ public class UsuarioService {
 	}
 	
 	public Usuario desativa(Long id) {
-		Usuario u = buscaPorId(id);
+		Usuario u = find(id);
 		u.setStatus("D");
 		return u;
 	}

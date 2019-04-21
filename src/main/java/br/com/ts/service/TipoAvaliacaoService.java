@@ -15,7 +15,7 @@ public class TipoAvaliacaoService {
 	private TipoAvaliacaoDao tipoAvaliacaoDao;
 	
 	@Transactional(readOnly = true)
-	public TipoAvaliacao buscaPorId(Long id) {
+	public TipoAvaliacao find(Long id) {
 		return tipoAvaliacaoDao.findById(id).get();
 	}
 	

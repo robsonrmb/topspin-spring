@@ -1,5 +1,6 @@
-package br.com.ts.controller;
+package br.com.ts.resources;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.ts.domain.Jogo;
 import br.com.ts.dto.JogoDTO;
@@ -23,22 +25,17 @@ import br.com.ts.service.JogoService;
 @CrossOrigin()
 @RestController
 @RequestMapping(value="/jogos", produces=MediaType.APPLICATION_JSON_VALUE)
-public class JogoController {
+public class JogoResource {
 	
 	@Autowired
 	private JogoService jogoService;
 	
 	@PostMapping(value="/add")
-    public ResponseEntity<Void> adiciona(@RequestBody JogoDTO formJogo){
-		Jogo jogo = jogoService.salva(formJogo);
-		return new ResponseEntity<>(HttpStatus.CREATED);
-		/*
-		 * Uma inserção deve retornar no Header da requisição o recurso disponível deste novo objeto criado. (uri)
-		 * ResponseEntity.created referente a inclusão.
-		 * 
+    public ResponseEntity<Jogo> adiciona(@RequestBody JogoDTO formJogo){
+		Jogo jogo = jogoService.insert(formJogo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(jogo.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-		*/
+		return ResponseEntity.created(uri).body(jogo);
+		
     }
 	
 	@GetMapping(value="/ultimos-jogos")

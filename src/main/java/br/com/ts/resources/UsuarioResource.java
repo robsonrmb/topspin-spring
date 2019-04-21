@@ -1,4 +1,4 @@
-package br.com.ts.controller;
+package br.com.ts.resources;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,23 +23,47 @@ import br.com.ts.service.UsuarioService;
 @CrossOrigin()
 @RestController
 @RequestMapping(value="/usuarios", produces=MediaType.APPLICATION_JSON_VALUE)
-public class UsuarioController {
+public class UsuarioResource {
 	
 	@Autowired
 	private UsuarioService usuarioService;
 
 	@GetMapping
 	public ResponseEntity<List<Usuario>> getListaTodos() {
-		List<Usuario> listaUsuarios = usuarioService.listaTodos();
-		ResponseEntity<List<Usuario>> result = new ResponseEntity<>(listaUsuarios, HttpStatus.OK);
-		return result;	
+		List<Usuario> listaUsuarios = usuarioService.findAll();
+		return ResponseEntity.ok().body(listaUsuarios);
 	}
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<Usuario> getUsuario(@PathVariable("id") Long id) {
-		Usuario usuario = usuarioService.buscaPorId(id);
-		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);	
+		Usuario usuario = usuarioService.find(id);
+		return ResponseEntity.ok().body(usuario);
 	}
+	
+	@PutMapping(value="/{id}")
+    public ResponseEntity<Void> atualiza(@RequestBody Usuario usuario, @PathVariable("id") Long id) {
+		usuario.setId(id);
+      	usuarioService.update(usuario);
+        return ResponseEntity.noContent().build();
+    }
+  	
+  	//SOMENTE ADMINISTRATIVO
+    @DeleteMapping(value="/remove/{id}")
+    public ResponseEntity<Void> remove(@PathVariable Long id){
+      	usuarioService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+    
+    //SOMENTE ADMINISTRATIVO OU O PROPRIO USUÁRIO
+  	@PutMapping(value="/desativa/{id}")
+    public ResponseEntity<Void> desativa(@PathVariable Long id){
+      	usuarioService.desativa(id);
+      	return ResponseEntity.noContent().build();
+  	}
+  	
+  	
+	
+	//PERSONALIZADOS ################################################################
 	
 	@GetMapping(value="/filterEmail/{email}")
     public ResponseEntity<Usuario> buscaPorEmail(@PathVariable String email) {
@@ -75,26 +99,6 @@ public class UsuarioController {
     		}
     	}
         return new ResponseEntity<List<Usuario>>(listaUsuariosFinal, HttpStatus.OK);	
-    }
-    
-    @PutMapping(value="/update")
-    public ResponseEntity<Void> atualiza(@RequestBody Usuario usuario){
-      	usuarioService.atualiza(usuario);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
-  	
-  	//SOMENTE ADMINISTRATIVO OU O PROPRIO USUÁRIO
-  	@PutMapping(value="/desativa/{id}")
-    public ResponseEntity<Void> desativa(@PathVariable Long id){
-      	usuarioService.desativa(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-  	}
-  	
-  	//SOMENTE ADMINISTRATIVO
-    @DeleteMapping(value="/remove/{id}")
-    public ResponseEntity<Void> remove(@PathVariable Long id){
-      	usuarioService.exclui(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
     
     /*

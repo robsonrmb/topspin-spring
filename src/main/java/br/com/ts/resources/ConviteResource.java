@@ -1,4 +1,4 @@
-package br.com.ts.controller;
+package br.com.ts.resources;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import br.com.ts.service.ConviteService;
 @CrossOrigin()
 @RestController
 @RequestMapping(value="/convites", produces=MediaType.APPLICATION_JSON_VALUE)
-public class ConviteController {
+public class ConviteResource {
 	
 	@Autowired
 	private ConviteService conviteService;

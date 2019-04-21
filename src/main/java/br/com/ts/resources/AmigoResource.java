@@ -1,4 +1,4 @@
-package br.com.ts.controller;
+package br.com.ts.resources;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import br.com.ts.service.AmigoService;
 @CrossOrigin
 @RestController
 @RequestMapping(value="/amigos", produces=MediaType.APPLICATION_JSON_VALUE)
-public class AmigoController {
+public class AmigoResource {
 	
 	@Autowired
 	private AmigoService amigoService;
@@ -39,13 +39,13 @@ public class AmigoController {
 	
 	@PostMapping(value="/add")
 	public ResponseEntity<?> adiciona(@RequestBody @Valid UsuarioAmigoDTO formUsuarioAmigo) {
-		amigoService.salva(formUsuarioAmigo);
+		amigoService.insert(formUsuarioAmigo);
 	    return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
   	
 	@PostMapping(value="/remove")
     public ResponseEntity<Void> remove(@RequestBody UsuarioAmigoDTO formUsuarioAmigo){
-      	amigoService.remove(formUsuarioAmigo);
+      	amigoService.delete(formUsuarioAmigo);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
   	
