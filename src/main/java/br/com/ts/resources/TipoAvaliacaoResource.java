@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ts.domain.TipoAvaliacao;
 import br.com.ts.service.TipoAvaliacaoService;
+import br.com.ts.service.exception.ObjectNotFoundException;
 
 @CrossOrigin()
 @RestController
@@ -38,7 +39,12 @@ public class TipoAvaliacaoResource {
 			listaAvaliacoes = tipoAvaliacaoService.findAll();
 		}else {
 			TipoAvaliacao ta = tipoAvaliacaoService.buscaPorNome(nome.toUpperCase());
-			listaAvaliacoes.add(ta);
+			if (ta != null) {
+				listaAvaliacoes.add(ta);
+			}
+		}
+		if (listaAvaliacoes == null || listaAvaliacoes.isEmpty()) {
+			throw new ObjectNotFoundException("Tipo de avaliação não encontrada.");
 		}
 		return ResponseEntity.ok().body(listaAvaliacoes);
 	}
