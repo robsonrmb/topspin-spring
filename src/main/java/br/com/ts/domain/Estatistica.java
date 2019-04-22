@@ -1,16 +1,27 @@
 package br.com.ts.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 @Entity
 @Table(name="ESTATISTICA")
-public class Estatistica extends AbstractEntity<Long> {
+public class Estatistica implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private Long id;
+	
 	@ManyToOne
 	@JoinColumn(name="id_usuario", nullable = false)
 	private Usuario usuario;
@@ -37,6 +48,14 @@ public class Estatistica extends AbstractEntity<Long> {
 	private int quantidade;
 	
 	public Estatistica() {}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Usuario getUsuario() {
 		return usuario;

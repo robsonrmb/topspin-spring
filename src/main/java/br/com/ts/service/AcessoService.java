@@ -49,6 +49,7 @@ public class AcessoService {
 
 	public boolean isExisteUsuario(Acesso acesso) {
 		return true; //TODO acessoDao.isExisteUsuario(acesso);
+		//throw new UnsupportedOperationException();
 	}
 
 }

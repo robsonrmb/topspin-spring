@@ -1,16 +1,31 @@
 package br.com.ts.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-import br.com.ts.dto.JogoDTO;
-
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 @Entity
 @Table(name="JOGO")
-public class Jogo extends AbstractEntity<Long> {
+public class Jogo implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private Long id;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data", nullable = false)
 	private Date data;
@@ -42,6 +57,14 @@ public class Jogo extends AbstractEntity<Long> {
 	private String dataJogoFormatada;
 	
 	public Jogo() {}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 	public Jogo(Date data, String tipo, String resultado, String placar, int qtdTieVencidos, int qtdTiePerdidos,
 			Usuario usuario, Usuario adversario) {

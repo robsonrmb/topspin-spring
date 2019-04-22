@@ -1,5 +1,7 @@
 package br.com.ts.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +16,20 @@ public class TipoEstatisticaService {
 	@Autowired
 	private TipoEstatisticaDao tipoEstatisticaDao;
 	
-	@Transactional(readOnly = true)
+	public TipoEstatistica findById(Long id) {
+		return tipoEstatisticaDao.findById(id).get();
+	}
+	
+	public List<TipoEstatistica> findAll() {
+		return tipoEstatisticaDao.findAll();
+	}
+	
+	public TipoEstatistica findByNome(String nome) {
+		return tipoEstatisticaDao.findByNome(nome);
+	}
+	
 	public TipoEstatistica buscaPorNome(String nome) {
-		return null; //TODO tipoEstatisticaDao.buscaPorNome(nome);
+		return tipoEstatisticaDao.buscaPorNome(nome);
 	}
 
 }

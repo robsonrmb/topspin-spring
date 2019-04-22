@@ -1,12 +1,20 @@
 package br.com.ts.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 @Entity
 @Table(name="AVALIACAO_RESPOSTAS")
-public class AvaliacaoRespostas extends AbstractEntity<Long> {
+public class AvaliacaoRespostas implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private Long id;
+	
 	@ManyToOne
 	@JoinColumn(name="id_avaliacao", nullable = false)
 	private Avaliacao avaliacao;
@@ -34,6 +42,14 @@ public class AvaliacaoRespostas extends AbstractEntity<Long> {
 		this.avaliacao = avaliacao;
 		this.idTipoAvaliacao = idTipoAvaliacao;
 		this.idTipoResposta = idTipoResposta;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Avaliacao getAvaliacao() {

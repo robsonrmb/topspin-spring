@@ -1,10 +1,8 @@
 package br.com.ts.dao;
 
-import java.util.List;
-
-import javax.persistence.TypedQuery;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.ts.domain.Usuario;
@@ -12,6 +10,21 @@ import br.com.ts.domain.Usuario;
 @Repository
 public interface UsuarioDao extends JpaRepository<Usuario, Long> {
 
+	Usuario findByEmail(String email);
+	Usuario findByNome(String nome);
+	Usuario findByEstado(String estado);
+	
+	@Query("SELECT u FROM Usuario u where u.email = :email and u.status = 'A'")
+	Usuario buscaPorEmail(@Param("email") String email);
+	
+	@Query("SELECT u FROM Usuario u where u.nome like :nome and u.status = 'A'")
+	Usuario listaPorNome(@Param("nome") String nome);
+	
+	@Query("SELECT u FROM Usuario u where u.estado = :estado and u.status = 'A'")
+	Usuario listaPorEstado(@Param("estado") String estado);
+	
+	//TODO falta implementar o método lista por filtros
+	
 	/*
 	public Usuario buscaPorEmail(String email) {
 		TypedQuery<Usuario> q = getEntityManager().createNamedQuery("busca.porEmail", Usuario.class); 

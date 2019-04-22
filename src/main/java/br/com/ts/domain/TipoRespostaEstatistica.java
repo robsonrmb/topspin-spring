@@ -1,20 +1,38 @@
 package br.com.ts.domain;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 @Entity
 @Table(name="TIPO_RESPOSTA_ESTATISTICA")
-public class TipoRespostaEstatistica extends AbstractEntity<Long> {
+public class TipoRespostaEstatistica implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private Long id;
+	
 	// ruim | regular | bom | ótimo ...
 	@Column(name = "nome", nullable = false, unique = true, length = 60)
 	private String nome;
 	
 	public TipoRespostaEstatistica() {}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 	public String getNome() {
 		return nome;

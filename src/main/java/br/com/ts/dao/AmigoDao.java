@@ -2,17 +2,22 @@ package br.com.ts.dao;
 
 import java.util.List;
 
-import javax.persistence.TypedQuery;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.ts.domain.Amigo;
-import br.com.ts.domain.Usuario;
-import br.com.ts.dto.UsuarioAmigoDTO;
 
 @Repository
 public interface AmigoDao extends JpaRepository<Amigo, Long> {
+	
+	@Query("SELECT a FROM Amigo a where a.usuario.id = :idUsuario and a.amigo.id = :idAmigo")
+	Amigo buscaAmigo(@Param("idUsuario") Long idUsuario, @Param("idAmigo") Long idAmigo);
+	
+	@Query("SELECT a FROM Amigo a where a.usuario.id = :id")
+	List<Amigo> listaAmigos(@Param("id") Long id);
+	
 	/*
 	public Amigo buscaAmigo(FormUsuarioAmigo formUsuarioAmigo) {
 		TypedQuery<Amigo> q = getEntityManager().createNamedQuery("busca.porUsuarioEAmigo", Amigo.class); 

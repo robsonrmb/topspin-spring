@@ -1,5 +1,7 @@
 package br.com.ts.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,14 +16,20 @@ public class TipoAvaliacaoService {
 	@Autowired
 	private TipoAvaliacaoDao tipoAvaliacaoDao;
 	
-	@Transactional(readOnly = true)
-	public TipoAvaliacao find(Long id) {
+	public TipoAvaliacao findById(Long id) {
 		return tipoAvaliacaoDao.findById(id).get();
 	}
 	
-	@Transactional(readOnly = true)
+	public List<TipoAvaliacao> findAll() {
+		return tipoAvaliacaoDao.findAll();
+	}
+	
+	public TipoAvaliacao findByNome(String nome) {
+		return tipoAvaliacaoDao.findByNome(nome);
+	}
+	
 	public TipoAvaliacao buscaPorNome(String nome) {
-		return null; //TODO tipoAvaliacaoDao.buscaPorNome(nome);
+		return tipoAvaliacaoDao.buscaPorNome(nome);
 	}
 
 }

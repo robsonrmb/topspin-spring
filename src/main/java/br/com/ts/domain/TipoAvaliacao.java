@@ -1,15 +1,22 @@
 package br.com.ts.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
 
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 @Entity
 @Table(name="TIPO_AVALIACAO")
-public class TipoAvaliacao extends AbstractEntity<Long> {
+public class TipoAvaliacao implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private Long id;
+	
 	// saque | forehand 
 	@Column(name = "nome", nullable = false, unique = true, length = 60)
 	private String nome;
@@ -25,6 +32,14 @@ public class TipoAvaliacao extends AbstractEntity<Long> {
     private Set<TipoRespostaAvaliacao> tipoRespostas = new HashSet<TipoRespostaAvaliacao>(); 
 	
 	public TipoAvaliacao() {}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 	public String getNome() {
 		return nome;
