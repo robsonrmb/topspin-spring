@@ -1,11 +1,13 @@
 package br.com.ts.dao.dinamic;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.ts.domain.Acesso;
 import br.com.ts.domain.Usuario;
 
 @Repository
@@ -51,6 +53,28 @@ public class UsuarioDaoImpl extends AbstractDao<Usuario, Long> {
 			q.setParameter("estado", usuario.getEstado());
 		}
 		return q.getResultList();
+	}
+	
+	public List<Usuario> listOfFilter(Usuario usuario) {
+		StringBuilder query = new StringBuilder("SELECT u FROM Usuario u where 1=1");
+		
+		Optional<String> nomeUsuario = Optional.ofNullable(usuario.getNome());
+		Optional<String> emailUsuario = Optional.ofNullable(usuario.getEmail());
+		Optional<String> estadoCivilUsuario = Optional.ofNullable(usuario.getEstado());
+		
+		nomeUsuario.ifPresent(nome -> query.append(" AND lower(u.nome) like lower(:nome) "));
+		emailUsuario.ifPresent(email -> query.append(" AND u.email = :email "));
+		estadoCivilUsuario.ifPresent(estadoCivil ->	query.append(" AND u.estadoCivil = :estadoCivil "));
+		
+		TypedQuery<Usuario> typedQuery = getEntityManager().createQuery(query.toString(), Usuario.class);
+		
+		nomeUsuario.ifPresent(nome -> typedQuery.setParameter("nome", nome));
+		emailUsuario.ifPresent(email -> typedQuery.setParameter("email", email));
+		estadoCivilUsuario.ifPresent(estadoCivil -> typedQuery.setParameter("estadoCivil", estadoCivil));
+		
+		List<Usuario> usuarios = typedQuery.getResultList();
+		
+		return Optional.ofNullable(usuarios).filter(lista -> !lista.isEmpty()).get();
 	}
 
 }
