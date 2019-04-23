@@ -14,6 +14,7 @@ public interface UsuarioDao extends JpaRepository<Usuario, Long> {
 	Usuario findByNome(String nome);
 	Usuario findByEstado(String estado);
 	
+	//@Query(value="SELECT * FROM Usuario u where u.email = :email and u.status = 'A'", nativeQuery=true) //SQL NATIVO
 	@Query("SELECT u FROM Usuario u where u.email = :email and u.status = 'A'")
 	Usuario buscaPorEmail(@Param("email") String email);
 	
