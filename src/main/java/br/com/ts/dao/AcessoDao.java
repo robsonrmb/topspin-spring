@@ -1,12 +1,16 @@
 package br.com.ts.dao;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import br.com.ts.domain.Acesso;
 
 @Repository
-public interface AcessoDao extends JpaRepository<Acesso, Long> {
+public interface AcessoDao extends JpaRepository<Acesso, Long> { //, JpaSpecificationExecutor<Acesso>
+	
+	//boolean isExisteUsuario(Specification<Acesso> spec); //,Pageable pageable ou Sort sort
 	
 	/*
 	public boolean isExisteUsuario(Acesso acesso) {
