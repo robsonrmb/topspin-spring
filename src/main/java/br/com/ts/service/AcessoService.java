@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ts.dao.AcessoDao;
 import br.com.ts.dao.UsuarioDao;
+import br.com.ts.dao.dinamic.AcessoDaoImpl;
 import br.com.ts.domain.Acesso;
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.CadastroLoginDTO;
@@ -20,6 +21,9 @@ public class AcessoService {
 	
 	@Autowired
 	private UsuarioDao usuarioDao;
+	
+	@Autowired
+	private AcessoDaoImpl acessoDaoImpl;
 	
 	public Usuario insert(CadastroLoginDTO cadastroLoginDTO) {
 		
@@ -48,7 +52,7 @@ public class AcessoService {
 	}
 
 	public boolean isExisteUsuario(Acesso acesso) {
-		return true; //TODO acessoDao.isExisteUsuario(acesso);
+		return acessoDaoImpl.isExisteUsuario(acesso);
 		//throw new UnsupportedOperationException();
 	}
 
