@@ -1,6 +1,7 @@
 package br.com.ts.domain;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -113,6 +114,26 @@ public class Convite implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		StringBuilder builder = new StringBuilder();
+		builder.append("\nVocê foi convidado para uma partida de tênis.");
+		builder.append("\nPessoa que convidou: " + getUsuario().getNome() + " ("+ getUsuario().getApelido() +")");
+		builder.append("\nData do Jogo: " + sdf.format(getData()));
+		builder.append("\nPeríodo: " + getPeriodo());
+		builder.append("\nLocal: " + getLocalJogo());
+		builder.append("\n" + getDescricao());
+		return builder.toString();
+		
+		/* FORMATAÇÃO DE VALOR
+		 * PARA ATRIBUTOS DO TIPO DOUBLE.
+		 * 
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
+		nf.format(getPreco()) //Sendo que o atributo preço é do tipo Double.
+		*/
 	}
 	
 }

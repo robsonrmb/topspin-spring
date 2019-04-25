@@ -10,6 +10,7 @@ import br.com.ts.dao.ConviteDao;
 import br.com.ts.domain.Convite;
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.ConviteDTO;
+import br.com.ts.service.mail.EmailService;
 
 @Service 
 @Transactional(readOnly = false)
@@ -17,6 +18,12 @@ public class ConviteService {
 
 	@Autowired
 	private ConviteDao conviteDao;
+	
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	public void salva(ConviteDTO formConvite) {
 		
@@ -36,6 +43,10 @@ public class ConviteService {
 		convite.setStatus("P");
       	
 		conviteDao.save(convite);
+		
+		convite.setUsuario(usuarioService.find(usuario.getId()));
+		
+		emailService.sendOrderConfirmationEmail(convite);
 	}
 
 	public void atualiza(Convite convite) {
