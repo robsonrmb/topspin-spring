@@ -109,6 +109,23 @@ public class Usuario implements Serializable {
 		this.sexo = sexo;
 		this.status = status;
 	}
+	
+	public Usuario(Long id, String nome, String email, String apelido, Date dataNascimento, String ondeJoga,
+			String tipo, String nivel, String cidade, String estado, String status, String sexo) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.apelido = apelido;
+		this.dataNascimento = dataNascimento;
+		this.ondeJoga = ondeJoga;
+		this.tipo = tipo;
+		this.nivel = nivel;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.status = status;
+		this.sexo = sexo;
+	}
 
 	public Long getId() {
 		return id;

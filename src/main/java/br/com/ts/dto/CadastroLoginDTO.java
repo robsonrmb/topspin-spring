@@ -8,6 +8,18 @@ public class CadastroLoginDTO {
 	private String estado;
 	private String sexo;
 	
+	public CadastroLoginDTO() {
+	}
+	
+	public CadastroLoginDTO(String nome, String email, String senha, String estado, String sexo) {
+		super();
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+		this.estado = estado;
+		this.sexo = sexo;
+	}
+
 	public String getNome() {
 		return nome;
 	}
