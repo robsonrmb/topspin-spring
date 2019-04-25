@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,9 @@ import br.com.ts.domain.Usuario;
 public class DBService {
 	
 	@Autowired
+	private BCryptPasswordEncoder pe;
+	
+	@Autowired
 	private AcessoDao acessoDao;
 	
 	@Autowired
@@ -27,10 +31,10 @@ public class DBService {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		Acesso ac1 = new Acesso("robson.rmb@gmail.com", "123");
-		Acesso ac2 = new Acesso("lilian.965698@gmail.com", "123");
-		Acesso ac3 = new Acesso("pedro@gmail.com", "123");
-		Acesso ac4 = new Acesso("lucas@gmail.com", "123");
+		Acesso ac1 = new Acesso("robson.rmb@gmail.com", pe.encode("123"));
+		Acesso ac2 = new Acesso("lilian.965698@gmail.com", pe.encode("123"));
+		Acesso ac3 = new Acesso("pedro@gmail.com", pe.encode("123"));
+		Acesso ac4 = new Acesso("lucas@gmail.com", pe.encode("123"));
 		acessoDao.saveAll(Arrays.asList(ac1, ac2, ac3, ac4));
 		
 		Usuario usu1 = new Usuario(null, "Robson Brito", "robson.rmb@gmail.com", "Robinho", sdf.parse("24/06/1978"), "AABB", "1", "1", "Brasília", "DF", "A", "M");

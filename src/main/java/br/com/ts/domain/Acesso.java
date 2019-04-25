@@ -18,7 +18,7 @@ public class Acesso implements Serializable {
 	@Column(name = "email", nullable = false, unique = true, length = 60)
 	private String email;
 	
-	@Column(name = "senha", nullable = false, length = 10)
+	@Column(name = "senha", nullable = false)
 	private String senha;
 	
 	public Acesso() {}
