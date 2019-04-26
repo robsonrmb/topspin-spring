@@ -10,23 +10,23 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import br.com.ts.domain.Acesso;
+import br.com.ts.domain.Usuario;
 
 
 @SuppressWarnings("serial")
-public class AcessoSpecification implements Specification<Acesso> {
+public class UsuarioSpecification implements Specification<Usuario> {
 
 	private String email;
 	private String senha;
 	
-	public AcessoSpecification(String email, String senha) {
+	public UsuarioSpecification(String email, String senha) {
 		super();
 		this.email = email;
 		this.senha = senha;
 	}
 
 	@Override
-	public Predicate toPredicate(Root<Acesso> root, CriteriaQuery<?> query, CriteriaBuilder cb) {	
+	public Predicate toPredicate(Root<Usuario> root, CriteriaQuery<?> query, CriteriaBuilder cb) {	
 		final Collection<Predicate> predicates = new ArrayList<Predicate>();
 		if (this.email != null) {
 			//Predicate p = cb.like(cb.upper(root.get(Acesso_.email)), "%" + this.email.toUpperCase() +"%");

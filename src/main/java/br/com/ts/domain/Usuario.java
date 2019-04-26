@@ -52,6 +52,9 @@ public class Usuario implements Serializable {
 	@Column(name = "email", nullable = false, unique = true, length = 60)
 	private String email;
 	
+	@Column(name = "senha", nullable = false)
+	private String senha;
+	
 	@Column(name = "apelido", length = 60)
 	private String apelido;
 	
@@ -125,12 +128,13 @@ public class Usuario implements Serializable {
 		addPerfil(Perfil.USUARIO);
 	}
 	
-	public Usuario(Long id, String nome, String email, String apelido, Date dataNascimento, String ondeJoga,
+	public Usuario(Long id, String nome, String email, String senha, String apelido, Date dataNascimento, String ondeJoga,
 			String tipo, String nivel, String cidade, String estado, String status, String sexo) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
+		this.senha = senha;
 		this.apelido = apelido;
 		this.dataNascimento = dataNascimento;
 		this.ondeJoga = ondeJoga;
@@ -165,6 +169,14 @@ public class Usuario implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getApelido() {

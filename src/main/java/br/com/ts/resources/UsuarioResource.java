@@ -1,5 +1,6 @@
 package br.com.ts.resources;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.ts.domain.Usuario;
+import br.com.ts.dto.CadastroLoginDTO;
+import br.com.ts.error.ResourceBadRequestException;
 import br.com.ts.service.UsuarioService;
 
 @CrossOrigin()
@@ -29,6 +33,25 @@ public class UsuarioResource {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@PostMapping
+    public ResponseEntity<Usuario> adiciona(@RequestBody CadastroLoginDTO cadastroLoginDTO) {
+		Usuario usuario = usuarioService.insert(cadastroLoginDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId()).toUri();
+        return ResponseEntity.created(uri).body(usuario);
+    }
+	
+	@PostMapping(value="/existe")
+    public ResponseEntity<Boolean> isExisteUsuario(@RequestBody Usuario usuario) {
+    	verificaSeUsuarioExiste(usuario);
+        return ResponseEntity.ok().body(true);	
+    }
+	
+	private void verificaSeUsuarioExiste(Usuario usuario) {
+		if (!this.usuarioService.isExisteUsuario(usuario)) {
+    		throw new ResourceBadRequestException("Dados inválidos!!!");
+    	}
+	}
 
 	@GetMapping
 	public ResponseEntity<List<Usuario>> getListaTodos() {

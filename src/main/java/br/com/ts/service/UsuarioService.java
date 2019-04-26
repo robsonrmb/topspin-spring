@@ -10,10 +10,11 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.ts.dao.AmigoDao;
 import br.com.ts.dao.UsuarioDao;
+import br.com.ts.dao.dinamic.UsuarioDaoImpl;
 import br.com.ts.domain.Amigo;
 import br.com.ts.domain.Usuario;
+import br.com.ts.dto.CadastroLoginDTO;
 import br.com.ts.dto.UsuarioAmigoDTO;
 import br.com.ts.service.exception.DataIntegrityException;
 import br.com.ts.service.exception.ObjectNotFoundException;
@@ -26,11 +27,25 @@ public class UsuarioService {
 	private UsuarioDao usuarioDao;
 	
 	@Autowired
-	private AmigoDao amigoDao;
+	private UsuarioDaoImpl usuarioDaoImpl;
 	
 	public void insert(Usuario usuario) {
 		usuario.setId(null);
 		usuarioDao.save(usuario);
+	}
+	
+	public Usuario insert(CadastroLoginDTO cadastroLoginDTO) {
+		
+		Usuario usuario = new Usuario(cadastroLoginDTO.getNome(), cadastroLoginDTO.getEmail(), cadastroLoginDTO.getEstado(), cadastroLoginDTO.getSexo(), "A");
+		usuario.setId(null);
+		usuarioDao.save(usuario);
+		
+		return usuario;
+	}
+	
+	public boolean isExisteUsuario(Usuario usuario) {
+		return usuarioDaoImpl.isExisteUsuario(usuario);
+		//throw new UnsupportedOperationException();
 	}
 
 	public void update(Usuario usuario) {

@@ -7,12 +7,26 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.ts.domain.Acesso;
 import br.com.ts.domain.Usuario;
 
 @Repository
 public class UsuarioDaoImpl extends AbstractDao<Usuario, Long> {
 
+	public boolean isExisteUsuario(Usuario acesso) {
+		
+		TypedQuery<Usuario> query = getEntityManager().createQuery("from Usuario where email = :email and senha = :senha", Usuario.class);
+		query.setParameter("email", acesso.getEmail());
+		query.setParameter("senha", acesso.getSenha());
+		List<Usuario> listaDeAcesso = query.getResultList();
+		
+		if (listaDeAcesso == null || listaDeAcesso.size() == 0) {
+			return false;
+		}else{
+			return true;
+		}
+		
+	}
+	
 	public Usuario buscaPorEmail(String email) {
 		TypedQuery<Usuario> q = getEntityManager().createNamedQuery("busca.porEmail", Usuario.class); 
 		q.setParameter("email", email);
