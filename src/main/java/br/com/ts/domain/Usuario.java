@@ -2,10 +2,16 @@ package br.com.ts.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +24,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.ts.enums.Perfil;
 
 //@SuppressWarnings("serial")
 @Entity
@@ -92,6 +100,10 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<Contabilizacao> contabilizacoes;
 	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+	
 	@Transient
 	private boolean amigo;
 	
@@ -99,7 +111,9 @@ public class Usuario implements Serializable {
 	private String dataNascimentoFormatada;
 	
 	
-	public Usuario() {}
+	public Usuario() {
+		addPerfil(Perfil.USUARIO);
+	}
 	
 	public Usuario(String nome, String email, String estado, String sexo, String status) {
 		super();
@@ -108,6 +122,7 @@ public class Usuario implements Serializable {
 		this.estado = estado;
 		this.sexo = sexo;
 		this.status = status;
+		addPerfil(Perfil.USUARIO);
 	}
 	
 	public Usuario(Long id, String nome, String email, String apelido, Date dataNascimento, String ondeJoga,
@@ -125,6 +140,7 @@ public class Usuario implements Serializable {
 		this.estado = estado;
 		this.status = status;
 		this.sexo = sexo;
+		addPerfil(Perfil.USUARIO);
 	}
 
 	public Long getId() {
@@ -289,5 +305,13 @@ public class Usuario implements Serializable {
 		this.sexo = sexo;
 	}
 	
+	public Set<Perfil> getPerfis() {
+		//retorna os perfis do cliente usando lambda.
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCodigo());
+	}
 	
 }

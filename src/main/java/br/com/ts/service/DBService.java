@@ -13,6 +13,7 @@ import br.com.ts.dao.AcessoDao;
 import br.com.ts.dao.UsuarioDao;
 import br.com.ts.domain.Acesso;
 import br.com.ts.domain.Usuario;
+import br.com.ts.enums.Perfil;
 
 @Service 
 @Transactional(readOnly = false)
@@ -38,6 +39,8 @@ public class DBService {
 		acessoDao.saveAll(Arrays.asList(ac1, ac2, ac3, ac4));
 		
 		Usuario usu1 = new Usuario(null, "Robson Brito", "robson.rmb@gmail.com", "Robinho", sdf.parse("24/06/1978"), "AABB", "1", "1", "Brasília", "DF", "A", "M");
+		usu1.addPerfil(Perfil.ADMIN);
+		
 		Usuario usu2 = new Usuario(null, "Lilian Faria", "lilian.965698@gmail.com", "Lilinha", sdf.parse("30/03/1978"), "AABB", "1", "1", "Goiânia", "GO", "A", "F");
 		Usuario usu3 = new Usuario(null, "Pedro Faria", "pedro@gmail.com", "Pepe", sdf.parse("16/12/2010"), "IATE", "1", "1", "Brasília", "DF", "A", "M");
 		Usuario usu4 = new Usuario(null, "Lucas Brito", "lucas@gmail.com", "Luquibas", sdf.parse("18/09/2014"), "SQA", "1", "1", "Brasília", "DF", "A", "M");
