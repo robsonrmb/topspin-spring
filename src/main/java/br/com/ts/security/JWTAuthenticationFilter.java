@@ -17,7 +17,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.ts.dto.CredenciaisDTO;
-
+/*
+ * FILTRO RESPONSÁVEL POR INTERCEPTAR A REQUISIÇÃO E VERIFICAR SE O USUÁRIO ESTÁ CORRETO.
+ */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	
 	private AuthenticationManager authenticationManager;
@@ -28,6 +30,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		this.jwtUtil = jwtUtil;
 	}
 	
+	//TENTANDO AUTENTICAR A REQUISIÇÃO DO USUÁRIO
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 		try {
@@ -36,7 +39,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			
 			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(),  creds.getSenha(), new ArrayList<>());
 			
-			Authentication auth = authenticationManager.authenticate(authToken);
+			//VERIFICANDO COM BASE NOS CONTRATOS (UserSS e UserDetailService) SE O USUÁRIO É VÁLIDO.
+			Authentication auth = authenticationManager.authenticate(authToken); 
 			return auth;
 		
 		}catch(IOException e) {
@@ -44,6 +48,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		}
 	}
 	
+	//SENDO A AUTENTICAÇÃO VÁLIDA, DEVE GERAR O TOKEN E ACRESCENTAR NA RESPOSTA DA REQUISIÇÃO.
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, 
 										 	HttpServletResponse response,

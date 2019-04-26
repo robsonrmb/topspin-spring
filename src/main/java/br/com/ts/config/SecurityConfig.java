@@ -59,6 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	
+	/*
+	 * Devemos informar duas coisas neste método:
+	 * 1. Quem é o userDetail que estamos usando: userDetailService.
+	 * 2. Quem é o algoritmo de codificação da senha: BCryptPasswordEncode.
+	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());

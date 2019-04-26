@@ -10,6 +10,11 @@ import br.com.ts.dao.UsuarioDao;
 import br.com.ts.domain.Usuario;
 import br.com.ts.security.UserSS;
 
+/*
+ * INTERFACE QUE REALIZA A BUSCA CONFORME EMAIL DO USUÁRIO.
+ * RECEBE O USUÁRIO E RETORNA UM UserDetail, NESTE CASO, O UserSS.
+ */
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 	

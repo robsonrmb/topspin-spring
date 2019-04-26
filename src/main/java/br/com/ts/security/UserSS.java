@@ -10,6 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.ts.enums.Perfil;
 
+/*
+ * ESPÉCIE DE UM CONTRATO QUE O SPRING PRECISA PARA TRABALHAR COM O USUÁRIO.
+ * PODERÁ IMPLEMENTAR UMA LÓGICA CONFORME SUAS REGRAS DE NEGÓCIO.
+ * ATRIBUTOS: ID, EMAIL, SENHA E UMA LISTA DE PERFIS.
+ */
+
 public class UserSS implements UserDetails {
 	
 	private static final long serialVersionUID = 1L;

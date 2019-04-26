@@ -1,7 +1,9 @@
 package br.com.ts.dto;
 
 import java.io.Serializable;
-
+/*
+ * CLASSE UTILIZADA PARA AS REQUISIÇÕES DE SEGURANÇA COM TOKEN.
+ */
 public class CredenciaisDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
