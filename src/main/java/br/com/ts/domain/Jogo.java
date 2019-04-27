@@ -58,17 +58,10 @@ public class Jogo implements Serializable {
 	
 	public Jogo() {}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public Jogo(Date data, String tipo, String resultado, String placar, int qtdTieVencidos, int qtdTiePerdidos,
-			Usuario usuario, Usuario adversario) {
+	public Jogo(Long id, Date data, String tipo, String resultado, String placar, int qtdTieVencidos,
+			int qtdTiePerdidos, Usuario usuario, Usuario adversario) {
 		super();
+		this.id = id;
 		this.data = data;
 		this.tipo = tipo;
 		this.resultado = resultado;
@@ -79,6 +72,14 @@ public class Jogo implements Serializable {
 		this.adversario = adversario;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public Date getData() {
 		return data;
 	}

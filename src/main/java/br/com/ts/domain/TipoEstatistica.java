@@ -28,6 +28,12 @@ public class TipoEstatistica implements Serializable {
     private Set<TipoRespostaEstatistica> tipoRespostas = new HashSet<TipoRespostaEstatistica>(); 
 	
 	public TipoEstatistica() {}
+	
+	public TipoEstatistica(Long id, String nome) {
+		super();
+		this.id = id;
+		this.nome = nome;
+	}
 
 	public Long getId() {
 		return id;

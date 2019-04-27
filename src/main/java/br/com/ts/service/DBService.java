@@ -3,6 +3,7 @@ package br.com.ts.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,13 +12,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ts.dao.AmigoDao;
 import br.com.ts.dao.AreaAvaliacaoDao;
+import br.com.ts.dao.ConviteDao;
+import br.com.ts.dao.JogoDao;
 import br.com.ts.dao.TipoAvaliacaoDao;
+import br.com.ts.dao.TipoEstatisticaDao;
 import br.com.ts.dao.TipoRespostaAvaliacaoDao;
+import br.com.ts.dao.TipoRespostaEstatisticaDao;
 import br.com.ts.dao.UsuarioDao;
 import br.com.ts.domain.Amigo;
 import br.com.ts.domain.AreaAvaliacao;
+import br.com.ts.domain.Convite;
+import br.com.ts.domain.Jogo;
 import br.com.ts.domain.TipoAvaliacao;
+import br.com.ts.domain.TipoEstatistica;
 import br.com.ts.domain.TipoRespostaAvaliacao;
+import br.com.ts.domain.TipoRespostaEstatistica;
 import br.com.ts.domain.Usuario;
 import br.com.ts.enums.Perfil;
 
@@ -32,6 +41,9 @@ public class DBService {
 	private UsuarioDao usuarioDao;
 	
 	@Autowired
+	private AmigoDao amigoDao;
+	
+	@Autowired
 	private AreaAvaliacaoDao areaAvaliacaoDao;
 	
 	@Autowired
@@ -41,7 +53,16 @@ public class DBService {
 	private TipoRespostaAvaliacaoDao tipoRespostaAvaliacaoDao;
 	
 	@Autowired
-	private AmigoDao amigoDao;
+	private TipoEstatisticaDao tipoEstatisticaDao;
+	
+	@Autowired
+	private TipoRespostaEstatisticaDao tipoRespostaEstatisticaDao;
+	
+	@Autowired
+	private JogoDao jogoDao;
+	
+	@Autowired
+	private ConviteDao conviteDao;
 
 	public void instanciandoBancoDeDados() throws ParseException {
 		
@@ -79,6 +100,35 @@ public class DBService {
 		TipoRespostaAvaliacao tra3 = new TipoRespostaAvaliacao(null, "BOM");
 		TipoRespostaAvaliacao tra4 = new TipoRespostaAvaliacao(null, "OTIMO");
 		tipoRespostaAvaliacaoDao.saveAll(Arrays.asList(tra1, tra2, tra3, tra4));
+		
+		TipoEstatistica te1 = new TipoEstatistica(null, "SAQUE");
+		TipoEstatistica te2 = new TipoEstatistica(null, "FOREHAND");
+		TipoEstatistica te3 = new TipoEstatistica(null, "BACKHAND");
+		TipoEstatistica te4 = new TipoEstatistica(null, "VOLEIO");
+		TipoEstatistica te5 = new TipoEstatistica(null, "SMASH");
+		TipoEstatistica te6 = new TipoEstatistica(null, "OFENSIVO");
+		TipoEstatistica te7 = new TipoEstatistica(null, "DEFENSIVO");
+		TipoEstatistica te8 = new TipoEstatistica(null, "TATICO");
+		TipoEstatistica te9 = new TipoEstatistica(null, "COMPETITIVO");
+		TipoEstatistica te10 = new TipoEstatistica(null, "PREPARO");
+		tipoEstatisticaDao.saveAll(Arrays.asList(te1, te2, te3, te4, te5, te6, te7, te8, te9, te10));
+		
+		TipoRespostaEstatistica tre1 = new TipoRespostaEstatistica(null, "RUIM");
+		TipoRespostaEstatistica tre2 = new TipoRespostaEstatistica(null, "REGULAR");
+		TipoRespostaEstatistica tre3 = new TipoRespostaEstatistica(null, "BOM");
+		TipoRespostaEstatistica tre4 = new TipoRespostaEstatistica(null, "OTIMO");
+		tipoRespostaEstatisticaDao.saveAll(Arrays.asList(tre1, tre2, tre3, tre4));
+		
+		Jogo jogo1 = new Jogo(null, new Date(), "0", "V", "0", 0, 0, usu1, null);
+		Jogo jogo2 = new Jogo(null, new Date(), "2", "V", "0", 0, 0, usu1, null);
+		Jogo jogo3 = new Jogo(null, new Date(), "0", "D", "4", 0, 0, usu1, null);
+		Jogo jogo4 = new Jogo(null, new Date(), "0", "V", "0", 0, 0, usu4, null);
+		jogoDao.saveAll(Arrays.asList(jogo1, jogo2, jogo3, jogo4));
+		
+		Convite cvt1 = new Convite(null, usu1, usu2, new Date(), "0", "AABB", "Vamos nessa!!!", "P");
+		Convite cvt2 = new Convite(null, usu1, usu3, new Date(), "0", "AABB", "Topa!!!", "P");
+		Convite cvt3 = new Convite(null, usu3, usu4, new Date(), "0", "SQA", "Sem chance!!!", "P");
+		conviteDao.saveAll(Arrays.asList(cvt1, cvt2, cvt3));
 	}
 
 }

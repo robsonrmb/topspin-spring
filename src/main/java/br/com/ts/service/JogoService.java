@@ -32,9 +32,7 @@ public class JogoService {
 		Usuario usuario = new Usuario();
 		usuario.setId(jogoDTO.getIdUsuario());
 		
-		Jogo jogo = new Jogo(jogoDTO.getData(), jogoDTO.getTipo(), jogoDTO.getResultado(), jogoDTO.getPlacar(), jogoDTO.getQtdTieVencidos(), jogoDTO.getQtdTiePerdidos(), usuario, null);
-		jogo.setId(null);
-		
+		Jogo jogo = new Jogo(null, jogoDTO.getData(), jogoDTO.getTipo(), jogoDTO.getResultado(), jogoDTO.getPlacar(), jogoDTO.getQtdTieVencidos(), jogoDTO.getQtdTiePerdidos(), usuario, null);
 		jogoDao.save(jogo);
 		
 		//GRAVANDO AS ESTATÍSTICAS

@@ -52,6 +52,19 @@ public class Convite implements Serializable {
 	
 	public Convite() {}
 
+	public Convite(Long id, Usuario usuario, Usuario convidado, Date data, String periodo, String localJogo,
+			String descricao, String status) {
+		super();
+		this.id = id;
+		this.usuario = usuario;
+		this.convidado = convidado;
+		this.data = data;
+		this.periodo = periodo;
+		this.localJogo = localJogo;
+		this.descricao = descricao;
+		this.status = status;
+	}
+
 	public Long getId() {
 		return id;
 	}
