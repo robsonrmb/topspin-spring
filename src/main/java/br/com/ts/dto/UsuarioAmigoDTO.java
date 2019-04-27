@@ -1,13 +1,17 @@
 package br.com.ts.dto;
 
-import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
-public class UsuarioAmigoDTO {
+import javax.validation.constraints.NotNull;
 
+public class UsuarioAmigoDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	private long id;
-	@NotBlank
+	@NotNull
 	private long idUsuario;
-	@NotBlank
+	@NotNull
 	private long idAmigo;
 	
 	public UsuarioAmigoDTO() {}

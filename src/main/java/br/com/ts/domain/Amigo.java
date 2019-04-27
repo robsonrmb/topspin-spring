@@ -38,6 +38,13 @@ public class Amigo implements Serializable {
 	private Usuario amigo;
 	
 	public Amigo() {}
+	
+	public Amigo(Long id, Usuario usuario, Usuario amigo) {
+		super();
+		this.id = id;
+		this.usuario = usuario;
+		this.amigo = amigo;
+	}
 
 	public Long getId() {
 		return id;

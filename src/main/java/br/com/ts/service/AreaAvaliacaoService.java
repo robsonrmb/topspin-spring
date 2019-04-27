@@ -19,7 +19,7 @@ public class AreaAvaliacaoService {
 	private AreaAvaliacaoDao areaAvaliacaoDao;
 
 	public List<AreaAvaliacao> listaAreasAvaliacaoCompleto() {
-		ArrayList<AreaAvaliacao> listaDeAreasAvaliacoes = null; //TODO (ArrayList<AreaAvaliacao>) areaAvaliacaoDao.listaAreasAvaliacaoCompleto();
+		ArrayList<AreaAvaliacao> listaDeAreasAvaliacoes = (ArrayList<AreaAvaliacao>) areaAvaliacaoDao.listaAreasAvaliacoes();
 		for (AreaAvaliacao aa: listaDeAreasAvaliacoes) {
 			for (TipoAvaliacao ta: aa.getTipo()) {
 				ta.getTipoRespostas().size();

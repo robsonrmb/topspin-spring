@@ -32,6 +32,13 @@ public class TipoAvaliacao implements Serializable {
     private Set<TipoRespostaAvaliacao> tipoRespostas = new HashSet<TipoRespostaAvaliacao>(); 
 	
 	public TipoAvaliacao() {}
+	
+	public TipoAvaliacao(Long id, String nome, AreaAvaliacao areaAvaliacao) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.areaAvaliacao = areaAvaliacao;
+	}
 
 	public Long getId() {
 		return id;

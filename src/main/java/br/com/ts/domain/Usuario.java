@@ -52,6 +52,7 @@ public class Usuario implements Serializable {
 	@Column(name = "email", nullable = false, unique = true, length = 60)
 	private String email;
 	
+	@JsonIgnore
 	@Column(name = "senha", nullable = false)
 	private String senha;
 	

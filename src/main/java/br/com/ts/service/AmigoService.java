@@ -13,7 +13,8 @@ import br.com.ts.domain.Amigo;
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.UsuarioAmigoDTO;
 
-@Service @Transactional(readOnly = false)
+@Service 
+@Transactional(readOnly = false)
 public class AmigoService {
 
 	@Autowired
@@ -39,17 +40,14 @@ public class AmigoService {
 	}
 	
 	public void delete(UsuarioAmigoDTO usuarioAmigoDTO) {
-		Amigo amigo = null; //TODO amigoDao.buscaAmigo(usuarioAmigoDTO);
+		Amigo amigo = amigoDao.buscaAmigo(usuarioAmigoDTO.getIdUsuario(), usuarioAmigoDTO.getIdAmigo());
 		amigoDao.deleteById(amigo.getId());
 	}
 
 	@Transactional(readOnly = true)
 	public List<Usuario> listaAmigos(Long id) {
-		Usuario usuario = new Usuario();
-		usuario.setId(id);
-		
 		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
-		List<Amigo> listaAmigos = new ArrayList<Amigo>(); //TODO amigoDao.listaAmigos(usuario);
+		List<Amigo> listaAmigos = amigoDao.listaAmigos(id);
 		for (Amigo amigo: listaAmigos) {
 			Usuario uAmigo = amigo.getAmigo();
 			listaUsuarios.add(uAmigo);

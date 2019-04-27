@@ -120,9 +120,9 @@ public class ConviteResource {
 	}
 	
 	@PostMapping(value="/add")
-    public ResponseEntity<Void> adiciona(@RequestBody ConviteDTO formConvite){
+    public ResponseEntity<Void> adiciona(@RequestBody ConviteDTO conviteDTO){
 		
-		conviteService.salva(formConvite);
+		conviteService.salva(conviteDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 	

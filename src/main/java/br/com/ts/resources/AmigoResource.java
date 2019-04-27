@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,15 +38,15 @@ public class AmigoResource {
         return new ResponseEntity<List<Usuario>>(listaAmigos, HttpStatus.OK);	
     }
 	
-	@PostMapping(value="/add")
-	public ResponseEntity<?> adiciona(@RequestBody @Valid UsuarioAmigoDTO formUsuarioAmigo) {
-		amigoService.insert(formUsuarioAmigo);
+	@PostMapping
+	public ResponseEntity<?> adiciona(@RequestBody @Valid UsuarioAmigoDTO usuarioAmigoDTO) {
+		amigoService.insert(usuarioAmigoDTO);
 	    return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
   	
-	@PostMapping(value="/remove")
-    public ResponseEntity<Void> remove(@RequestBody UsuarioAmigoDTO formUsuarioAmigo){
-      	amigoService.delete(formUsuarioAmigo);
+	@DeleteMapping
+    public ResponseEntity<Void> remove(@RequestBody UsuarioAmigoDTO usuarioAmigoDTO){
+      	amigoService.delete(usuarioAmigoDTO);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
   	

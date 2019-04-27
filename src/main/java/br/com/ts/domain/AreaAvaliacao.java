@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //@SuppressWarnings("serial")
 @Entity
 @Table(name="AREA_AVALIACAO")
@@ -20,10 +22,17 @@ public class AreaAvaliacao implements Serializable {
 	@Column(name = "nome", nullable = false, unique = true, length = 60)
 	private String nome;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="areaAvaliacao")
 	private List<TipoAvaliacao> tipo;
 	
 	public AreaAvaliacao() {}
+	
+	public AreaAvaliacao(Long id, String nome) {
+		super();
+		this.id = id;
+		this.nome = nome;
+	}
 
 	public Long getId() {
 		return id;

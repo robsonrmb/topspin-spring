@@ -34,26 +34,26 @@ public class AvaliacaoResource {
 	private AvaliacaoService avaliacaoService;
 	
 	@PostMapping(value="/add")
-    public ResponseEntity<Void> adiciona(@RequestBody AvaliacaoDTO formAvaliacao){
-		avaliacaoService.salva(formAvaliacao);
+    public ResponseEntity<Void> adiciona(@RequestBody AvaliacaoDTO avaliacaoDTO){
+		avaliacaoService.salva(avaliacaoDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 	
 	@PostMapping(value="/add-respostas")
-    public ResponseEntity<Void> adicionaResposta(@RequestBody AvaliacaoResultDTO formAvaliacaoResult){
-		avaliacaoService.salvaRespostas(formAvaliacaoResult);
+    public ResponseEntity<Void> adicionaResposta(@RequestBody AvaliacaoResultDTO avaliacaoDTOResult){
+		avaliacaoService.salvaRespostas(avaliacaoDTOResult);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 	
 	@PutMapping(value="/aceita")
-    public ResponseEntity<Void> aceitaAvaliacao(@RequestBody AvaliacaoDTO formAvaliacao){
-      	avaliacaoService.atualiza(formAvaliacao, "A");
+    public ResponseEntity<Void> aceitaAvaliacao(@RequestBody AvaliacaoDTO avaliacaoDTO){
+      	avaliacaoService.atualiza(avaliacaoDTO, "A");
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 	
 	@PutMapping(value="/recusa")
-    public ResponseEntity<Void> recusaAvaliacao(@RequestBody AvaliacaoDTO formAvaliacao){
-      	avaliacaoService.atualiza(formAvaliacao, "R");
+    public ResponseEntity<Void> recusaAvaliacao(@RequestBody AvaliacaoDTO avaliacaoDTO){
+      	avaliacaoService.atualiza(avaliacaoDTO, "R");
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
   	

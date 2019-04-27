@@ -12,7 +12,7 @@ import br.com.ts.domain.TipoAvaliacao;
 @Repository
 public class AreaAvaliacaoDaoImpl extends AbstractDao<TipoAvaliacao, Long> {
 
-	public List<AreaAvaliacao> listaAreasAvaliacaoCompleto() {
+	public List<AreaAvaliacao> listaAreasAvaliacoes() {
 		String query = "SELECT aa FROM AreaAvaliacao aa order by aa.id";
 		TypedQuery<AreaAvaliacao> q = getEntityManager().createQuery(query, AreaAvaliacao.class); 
 		return q.getResultList();
