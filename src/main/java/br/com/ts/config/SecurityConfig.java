@@ -35,12 +35,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JWTUtil jwtUtil;
 	
-	private static final String[] PUBLIC_MATCHERS = {
+	private static final String[] PUBLIC_MATCHERS_H2 = {
 		"/h2-console/**"
 	};
 	
-	private static final String[] PUBLIC_MATCHERS_GET = {
-		"/acessos/**",
+	private static final String[] PUBLIC_MATCHERS_TS = {
+		"/amigos/**",
+		"/area-avaliacoes/**",
+		"/avaliacoes/**",
+		"/convites/**",
+		"/estatisticas/**",
+		"/jogos/**",
+		"/tipoavaliacoes/**",
 		"/usuarios/**"
 	};
 	
@@ -52,12 +58,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		}
 		
 		http.cors().and().csrf().disable();
+		
 		http.authorizeRequests()
-			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
-			.antMatchers(PUBLIC_MATCHERS).permitAll()
+			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_TS).permitAll()
+			.antMatchers(PUBLIC_MATCHERS_H2).permitAll()
 			.anyRequest().authenticated();
+		
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
+		
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	
