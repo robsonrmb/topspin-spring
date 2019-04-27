@@ -15,8 +15,13 @@ public class TipoRespostaAvaliacaoService {
 	private TipoRespostaAvaliacaoDao tipoRespostaAvaliacaoDao;
 	
 	@Transactional(readOnly = true)
+	public TipoRespostaAvaliacao findById(Long id) {
+		return tipoRespostaAvaliacaoDao.findById(id).get();
+	}
+	
+	@Transactional(readOnly = true)
 	public TipoRespostaAvaliacao buscaPorNome(String nome) {
-		return null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(nome);
+		return tipoRespostaAvaliacaoDao.buscaPorNome(nome);
 	}
 
 }

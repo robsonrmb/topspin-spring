@@ -37,6 +37,16 @@ public class UserSS implements UserDetails {
 								 .map(x -> new SimpleGrantedAuthority(x.getDescricao()))
 								 .collect(Collectors.toList());
 	}
+	
+	// MÉTODO ORIGINAL DO FRAMEWORK É O getUsername()
+	public String getEmail() {
+		return email;
+	}
+	
+	// VERIFICA SE O USUÁRIO POSSUI O PERFIL PASSADO NO PARÂMETRO.
+	public boolean isUsuarioComPerfil(Perfil perfil) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+	}
 
 	public Long getId() {
 		return id;

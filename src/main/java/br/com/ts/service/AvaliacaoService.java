@@ -24,6 +24,9 @@ import br.com.ts.domain.TipoRespostaEstatistica;
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.AvaliacaoDTO;
 import br.com.ts.dto.AvaliacaoResultDTO;
+import br.com.ts.enums.Perfil;
+import br.com.ts.security.UserSS;
+import br.com.ts.service.exception.AuthorizationException;
 
 @Service @Transactional(readOnly = false)
 public class AvaliacaoService {
@@ -58,10 +61,15 @@ public class AvaliacaoService {
 	@Autowired
 	private ContabilizacaoService contabilizacaoService;
 
-	public void salva(AvaliacaoDTO formAvaliacao) {
+	public void salva(AvaliacaoDTO avaliacaoDTO) {
 		
-		Usuario usuario = usuarioDao.findById(formAvaliacao.getIdUsuario()).get();
-		Usuario avaliado = usuarioDao.findById(formAvaliacao.getIdAvaliado()).get();
+		Usuario usuario = usuarioDao.findById(avaliacaoDTO.getIdUsuario()).get();
+		Usuario avaliado = usuarioDao.findById(avaliacaoDTO.getIdAvaliado()).get();
+		
+		UserSS usuarioLogado = AuthenticationService.getUsuarioAutenticado();
+		if (usuarioLogado == null || (usuarioLogado.getEmail().equals(avaliado.getEmail()))) {
+			throw new AuthorizationException("Acesso negado!!! Um usuário não pode avaliar a si mesmo.");
+		}
 		
 		Avaliacao avaliacao = new Avaliacao();
 		avaliacao.setAvaliador(usuario);
@@ -72,52 +80,52 @@ public class AvaliacaoService {
 		avaliacaoDao.save(avaliacao);
 		
 		TipoAvaliacao tipoAvaliacao = tipoAvaliacaoDao.buscaPorNome("SAQUE");
-		TipoRespostaAvaliacao tipoResposta = null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(formAvaliacao.getRespostaSaque());
+		TipoRespostaAvaliacao tipoResposta = tipoRespostaAvaliacaoDao.buscaPorNome(avaliacaoDTO.getRespostaSaque().toUpperCase());
 		AvaliacaoRespostas ar = new AvaliacaoRespostas(avaliacao, tipoAvaliacao.getId(), tipoResposta.getId());
 		avaliacaoRespostasDao.save(ar);
 		
 		tipoAvaliacao = tipoAvaliacaoDao.buscaPorNome("FOREHAND");
-		tipoResposta = null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(formAvaliacao.getRespostaForehand());
+		tipoResposta = tipoRespostaAvaliacaoDao.buscaPorNome(avaliacaoDTO.getRespostaForehand().toUpperCase());
 		ar = new AvaliacaoRespostas(avaliacao, tipoAvaliacao.getId(), tipoResposta.getId());
 		avaliacaoRespostasDao.save(ar);
 		
 		tipoAvaliacao = tipoAvaliacaoDao.buscaPorNome("BACKHAND");
-		tipoResposta = null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(formAvaliacao.getRespostaBackhand());
+		tipoResposta = tipoRespostaAvaliacaoDao.buscaPorNome(avaliacaoDTO.getRespostaBackhand().toUpperCase());
 		ar = new AvaliacaoRespostas(avaliacao, tipoAvaliacao.getId(), tipoResposta.getId());
 		avaliacaoRespostasDao.save(ar);
 		
 		tipoAvaliacao = tipoAvaliacaoDao.buscaPorNome("VOLEIO");
-		tipoResposta = null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(formAvaliacao.getRespostaVoleio());
+		tipoResposta = tipoRespostaAvaliacaoDao.buscaPorNome(avaliacaoDTO.getRespostaVoleio().toUpperCase());
 		ar = new AvaliacaoRespostas(avaliacao, tipoAvaliacao.getId(), tipoResposta.getId());
 		avaliacaoRespostasDao.save(ar);
 		
 		tipoAvaliacao = tipoAvaliacaoDao.buscaPorNome("SMASH");
-		tipoResposta = null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(formAvaliacao.getRespostaSmash());
+		tipoResposta =tipoRespostaAvaliacaoDao.buscaPorNome(avaliacaoDTO.getRespostaSmash().toUpperCase());
 		ar = new AvaliacaoRespostas(avaliacao, tipoAvaliacao.getId(), tipoResposta.getId());
 		avaliacaoRespostasDao.save(ar);
 		
 		tipoAvaliacao = tipoAvaliacaoDao.buscaPorNome("OFENSIVO");
-		tipoResposta = null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(formAvaliacao.getRespostaOfensivo());
+		tipoResposta = tipoRespostaAvaliacaoDao.buscaPorNome(avaliacaoDTO.getRespostaOfensivo().toUpperCase());
 		ar = new AvaliacaoRespostas(avaliacao, tipoAvaliacao.getId(), tipoResposta.getId());
 		avaliacaoRespostasDao.save(ar);
 		
 		tipoAvaliacao = tipoAvaliacaoDao.buscaPorNome("DEFENSIVO");
-		tipoResposta = null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(formAvaliacao.getRespostaDefensivo());
+		tipoResposta = tipoRespostaAvaliacaoDao.buscaPorNome(avaliacaoDTO.getRespostaDefensivo().toUpperCase());
 		ar = new AvaliacaoRespostas(avaliacao, tipoAvaliacao.getId(), tipoResposta.getId());
 		avaliacaoRespostasDao.save(ar);
 		
 		tipoAvaliacao = tipoAvaliacaoDao.buscaPorNome("TATICO");
-		tipoResposta = null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(formAvaliacao.getRespostaTatico());
+		tipoResposta = tipoRespostaAvaliacaoDao.buscaPorNome(avaliacaoDTO.getRespostaTatico().toUpperCase());
 		ar = new AvaliacaoRespostas(avaliacao, tipoAvaliacao.getId(), tipoResposta.getId());
 		avaliacaoRespostasDao.save(ar);
 		
 		tipoAvaliacao = tipoAvaliacaoDao.buscaPorNome("COMPETITIVO");
-		tipoResposta = null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(formAvaliacao.getRespostaCompetitivo());
+		tipoResposta = tipoRespostaAvaliacaoDao.buscaPorNome(avaliacaoDTO.getRespostaCompetitivo().toUpperCase());
 		ar = new AvaliacaoRespostas(avaliacao, tipoAvaliacao.getId(), tipoResposta.getId());
 		avaliacaoRespostasDao.save(ar);
 		
 		tipoAvaliacao = tipoAvaliacaoDao.buscaPorNome("PREPARO");
-		tipoResposta = null; //TODO tipoRespostaAvaliacaoDao.buscaPorNome(formAvaliacao.getRespostaPreparo());
+		tipoResposta = tipoRespostaAvaliacaoDao.buscaPorNome(avaliacaoDTO.getRespostaPreparo().toUpperCase());
 		ar = new AvaliacaoRespostas(avaliacao, tipoAvaliacao.getId(), tipoResposta.getId());
 		avaliacaoRespostasDao.save(ar);
 		
@@ -138,8 +146,8 @@ public class AvaliacaoService {
 		for (String str: formAvaliacaoResult.getRespostas()) {
 			String resposta[] = new String[2];
 			resposta = str.split("#");
-			TipoAvaliacao tipoAvaliacao = null; //TODO tipoAvaliacaoService.buscaPorId(Long.parseLong(resposta[0]));
-			TipoRespostaAvaliacao tipoResposta = null; //TODO tipoRespostaAvaliacaoDao.findById(Long.parseLong(resposta[1]));
+			//TipoAvaliacao tipoAvaliacao = tipoAvaliacaoService.findById(Long.parseLong(resposta[0])); //Comentei pq a variável não estava sendo usada.
+			TipoRespostaAvaliacao tipoResposta = tipoRespostaAvaliacaoDao.findById(Long.parseLong(resposta[1])).get();
 			AvaliacaoRespostas ar = new AvaliacaoRespostas(avaliacao, Long.parseLong(resposta[0]), tipoResposta.getId());
 			avaliacaoRespostasDao.save(ar);
 		}
@@ -192,7 +200,7 @@ public class AvaliacaoService {
 				break;
 			}
 		}
-		TipoRespostaAvaliacao tra = null; //TODO tipoRespostaAvaliacaoDao.findById(idAvaliacaoResposta);
+		TipoRespostaAvaliacao tra = tipoRespostaAvaliacaoDao.findById(idAvaliacaoResposta).get();
 		
 		TipoEstatistica te = tipoEstatisticaService.buscaPorNome(nome);
 		TipoRespostaEstatistica tre = tipoRespostaEstatisticaService.buscaPorNome(tra.getNome());

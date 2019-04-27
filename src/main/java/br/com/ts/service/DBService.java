@@ -98,7 +98,7 @@ public class DBService {
 		TipoRespostaAvaliacao tra1 = new TipoRespostaAvaliacao(null, "RUIM");
 		TipoRespostaAvaliacao tra2 = new TipoRespostaAvaliacao(null, "REGULAR");
 		TipoRespostaAvaliacao tra3 = new TipoRespostaAvaliacao(null, "BOM");
-		TipoRespostaAvaliacao tra4 = new TipoRespostaAvaliacao(null, "OTIMO");
+		TipoRespostaAvaliacao tra4 = new TipoRespostaAvaliacao(null, "ÓTIMO");
 		tipoRespostaAvaliacaoDao.saveAll(Arrays.asList(tra1, tra2, tra3, tra4));
 		
 		TipoEstatistica te1 = new TipoEstatistica(null, "SAQUE");
@@ -116,7 +116,7 @@ public class DBService {
 		TipoRespostaEstatistica tre1 = new TipoRespostaEstatistica(null, "RUIM");
 		TipoRespostaEstatistica tre2 = new TipoRespostaEstatistica(null, "REGULAR");
 		TipoRespostaEstatistica tre3 = new TipoRespostaEstatistica(null, "BOM");
-		TipoRespostaEstatistica tre4 = new TipoRespostaEstatistica(null, "OTIMO");
+		TipoRespostaEstatistica tre4 = new TipoRespostaEstatistica(null, "ÓTIMO");
 		tipoRespostaEstatisticaDao.saveAll(Arrays.asList(tre1, tre2, tre3, tre4));
 		
 		Jogo jogo1 = new Jogo(null, new Date(), "0", "V", "0", 0, 0, usu1, null);
