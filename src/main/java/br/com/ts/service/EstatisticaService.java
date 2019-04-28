@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ts.dao.EstatisticaDao;
+import br.com.ts.dao.dinamic.EstatisticaDaoImpl;
 import br.com.ts.domain.Estatistica;
 import br.com.ts.domain.TipoEstatistica;
 import br.com.ts.domain.Usuario;
@@ -19,6 +20,9 @@ public class EstatisticaService {
 	private EstatisticaDao estatisticaDao;
 	
 	@Autowired
+	private EstatisticaDaoImpl estatisticaDaoImpl;
+	
+	@Autowired
 	private TipoEstatisticaService tipoEstatisticaService;
 	
 	@Autowired
@@ -26,7 +30,7 @@ public class EstatisticaService {
 	
 	public void salva(Estatistica estatistica) {
 		
-		List<Estatistica> listaDeEstatistica = null; //TODO estatisticaDao.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), estatistica.getIdTipoResposta());
+		List<Estatistica> listaDeEstatistica = estatisticaDaoImpl.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), estatistica.getIdTipoResposta());
 		
 		if (listaDeEstatistica != null && listaDeEstatistica.size() > 1) {
 			System.out.println("Erro na gravação da estatística... Verificar!!!");
@@ -54,7 +58,7 @@ public class EstatisticaService {
 		estatistica.setAno(0);
 		estatistica.setIdTipoEstatistica(te.getId());
 		
-		List<Estatistica> listaDeEstatistica = null; //TODO estatisticaDao.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), 0);
+		List<Estatistica> listaDeEstatistica = estatisticaDaoImpl.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), 0);
 		
 		int quantidade = 0;
 		if (listaDeEstatistica != null && listaDeEstatistica.size() > 0) {
@@ -75,7 +79,7 @@ public class EstatisticaService {
 		estatistica.setIdTipoEstatistica(idTipoEstatistica);
 		estatistica.setIdTipoResposta(idTipoResposta);
 		
-		List<Estatistica> listaDeEstatistica = null; //TODO estatisticaDao.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), estatistica.getIdTipoResposta());
+		List<Estatistica> listaDeEstatistica = estatisticaDaoImpl.buscaPorUsuarioAnoTipoEResposta(estatistica.getUsuario().getId(), estatistica.getAno(), estatistica.getIdTipoEstatistica(), estatistica.getIdTipoResposta());
 		
 		int quantidade = 0;
 		if (listaDeEstatistica != null && listaDeEstatistica.size() > 0) {

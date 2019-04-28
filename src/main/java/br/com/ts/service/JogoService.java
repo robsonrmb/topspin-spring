@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ts.dao.JogoDao;
+import br.com.ts.dao.dinamic.JogoDaoImpl;
 import br.com.ts.domain.Estatistica;
 import br.com.ts.domain.Jogo;
 import br.com.ts.domain.TipoEstatistica;
@@ -20,6 +21,12 @@ public class JogoService {
 
 	@Autowired
 	private JogoDao jogoDao;
+	
+	@Autowired
+	private JogoDaoImpl jogoDaoImpl;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@Autowired
 	private EstatisticaService estatisticaService;
@@ -29,8 +36,9 @@ public class JogoService {
 	
 	public Jogo insert(JogoDTO jogoDTO) {
 		
-		Usuario usuario = new Usuario();
-		usuario.setId(jogoDTO.getIdUsuario());
+		Usuario usuario = usuarioService.find(jogoDTO.getIdUsuario());
+		
+		RegrasNegocioService.umUsuarioSoPodeCadastrarJogoDeleMesmo(usuario);
 		
 		Jogo jogo = new Jogo(null, jogoDTO.getData(), jogoDTO.getTipo(), jogoDTO.getResultado(), jogoDTO.getPlacar(), jogoDTO.getQtdTieVencidos(), jogoDTO.getQtdTiePerdidos(), usuario, null);
 		jogoDao.save(jogo);
@@ -50,12 +58,12 @@ public class JogoService {
 		return jogo;
 	}
 
-	private void gravaEstatisticaVitoriaOuDerrota(JogoDTO formJogo, Usuario usuario, int ano) {
+	private void gravaEstatisticaVitoriaOuDerrota(JogoDTO jogoDTO, Usuario usuario, int ano) {
 		Estatistica estatisticaVD = new Estatistica();
 		estatisticaVD.setUsuario(usuario);
 		estatisticaVD.setAno(ano);
 		
-		TipoEstatistica te = tipoEstatisticaService.buscaPorNome(formJogo.getResultadoFormatado()); //VITORIA / DERROTA
+		TipoEstatistica te = tipoEstatisticaService.buscaPorNome(jogoDTO.getResultadoFormatado()); //VITORIA / DERROTA
 		estatisticaVD.setIdTipoEstatistica(te.getId());
 		estatisticaVD.setIdTipoResposta(0);
 		estatisticaVD.setQuantidade(1);
@@ -113,7 +121,7 @@ public class JogoService {
 	}
 
 	public JogoDTO buscaUltimosJogosPorUsuario(Long id, int qtd) {
-		List<Jogo> lista = null; //TODO jogoDao.listaUltimosJogosPorUsuario(id, qtd);
+		List<Jogo> lista = jogoDaoImpl.listaUltimosJogosPorUsuario(id, qtd);
 		String ultimosJogos = "";
 		for(Jogo jogo: lista) {
 			ultimosJogos = ultimosJogos + jogo.getResultado();

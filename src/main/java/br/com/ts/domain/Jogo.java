@@ -62,7 +62,11 @@ public class Jogo implements Serializable {
 			int qtdTiePerdidos, Usuario usuario, Usuario adversario) {
 		super();
 		this.id = id;
-		this.data = data;
+		if (data != null) {
+			this.data = data;
+		}else {
+			this.data = new Date(System.currentTimeMillis());
+		}
 		this.tipo = tipo;
 		this.resultado = resultado;
 		this.placar = placar;

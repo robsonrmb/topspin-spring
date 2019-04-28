@@ -25,21 +25,21 @@ public class ConviteService {
 	@Autowired
 	private EmailService emailService;
 	
-	public void salva(ConviteDTO formConvite) {
+	public void salva(ConviteDTO conviteDTO) {
 		
-		Usuario usuario = new Usuario();
-		usuario.setId(formConvite.getIdUsuario());
+		Usuario usuario = usuarioService.find(conviteDTO.getIdUsuario());
+		Usuario convidado = usuarioService.find(conviteDTO.getIdConvidado());
 		
-		Usuario convidado = new Usuario();
-		convidado.setId(formConvite.getIdConvidado());
+		RegrasNegocioService.umUsuarioNaoPodeConvidarEleMesmo(convidado);
+		RegrasNegocioService.umUsuarioNaoPodeConvidarPorOutroUsuario(usuario);
 		
 		Convite convite = new Convite();
 		convite.setUsuario(usuario);
 		convite.setConvidado(convidado);
-		convite.setData(formConvite.getData());
-		convite.setPeriodo(formConvite.getPeriodo());
-		convite.setLocalJogo(formConvite.getLocalJogo());
-		convite.setDescricao(formConvite.getDescricao());
+		convite.setData(conviteDTO.getData());
+		convite.setPeriodo(conviteDTO.getPeriodo());
+		convite.setLocalJogo(conviteDTO.getLocalJogo());
+		convite.setDescricao(conviteDTO.getDescricao());
 		convite.setStatus("P");
       	
 		conviteDao.save(convite);

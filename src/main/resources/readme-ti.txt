@@ -4,6 +4,10 @@
 
 # REGRAS DE NEGÓCIO (IMPORTANTES)
 # -------------------------------
-# UM USUÁRIO NÃO PODE AVALIAR ELE MESMO.
 # SOMENTE ADMINISTRADORES PODEM EXCLUIR USUÁRIOS.
-# 
+# UM USUÁRIO NÃO PODE AVALIAR ELE MESMO 					- implementado / testado.
+# UM USUÁRIO NÃO PODE AVALIAR POR OUTRA PESSOA 				- implementado / testado.
+# UM USUÁRIO NÃO PODE CONVIDAR ELE MESMO 					- implementado / testado.
+# UM USUÁRIO NÃO PODE CONVIDAR POR OUTRA PESSOA 			- implementado / testado.
+# UM USUÁRIO SÓ PODE CADASTRAR JOGOS DELE MESMO. 			- implementado / testado.
+# UM USUÁRIO SÓ PODE EDITAR E ALTERAR O CADASTRO DELE MESMO - implementado.

@@ -13,6 +13,7 @@ import br.com.ts.dao.AvaliacaoRespostasDao;
 import br.com.ts.dao.TipoAvaliacaoDao;
 import br.com.ts.dao.TipoRespostaAvaliacaoDao;
 import br.com.ts.dao.UsuarioDao;
+import br.com.ts.dao.dinamic.AvaliacaoDaoImpl;
 import br.com.ts.domain.Avaliacao;
 import br.com.ts.domain.AvaliacaoRespostas;
 import br.com.ts.domain.Contabilizacao;
@@ -24,9 +25,6 @@ import br.com.ts.domain.TipoRespostaEstatistica;
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.AvaliacaoDTO;
 import br.com.ts.dto.AvaliacaoResultDTO;
-import br.com.ts.enums.Perfil;
-import br.com.ts.security.UserSS;
-import br.com.ts.service.exception.AuthorizationException;
 
 @Service @Transactional(readOnly = false)
 public class AvaliacaoService {
@@ -35,7 +33,7 @@ public class AvaliacaoService {
 	private AvaliacaoDao avaliacaoDao;
 	
 	@Autowired
-	private TipoAvaliacaoService tipoAvaliacaoService;
+	private AvaliacaoDaoImpl avaliacaoDaoImpl;
 	
 	@Autowired
 	private AvaliacaoRespostasDao avaliacaoRespostasDao;
@@ -66,10 +64,8 @@ public class AvaliacaoService {
 		Usuario usuario = usuarioDao.findById(avaliacaoDTO.getIdUsuario()).get();
 		Usuario avaliado = usuarioDao.findById(avaliacaoDTO.getIdAvaliado()).get();
 		
-		UserSS usuarioLogado = AuthenticationService.getUsuarioAutenticado();
-		if (usuarioLogado == null || (usuarioLogado.getEmail().equals(avaliado.getEmail()))) {
-			throw new AuthorizationException("Acesso negado!!! Um usuário não pode avaliar a si mesmo.");
-		}
+		RegrasNegocioService.umUsuarioNaoPodeAvaliarEleMesmo(avaliado);
+		RegrasNegocioService.umUsuarioNaoPodeAvaliarPorOutroUsuario(usuario);
 		
 		Avaliacao avaliacao = new Avaliacao();
 		avaliacao.setAvaliador(usuario);
@@ -216,11 +212,11 @@ public class AvaliacaoService {
 	}
 
 	public List<Avaliacao> listaPorAvaliadoEStatus(Avaliacao avaliacao) {
-		return null; //TODO avaliacaoDao.listaPorAvaliadoEStatus(avaliacao);
+		return avaliacaoDaoImpl.listaPorAvaliadoEStatus(avaliacao);
 	}
 	
 	public int countPorAvaliadoEPendente(Avaliacao avaliacao) {
-		return 0; //TODO avaliacaoDao.countPorAvaliadoEPendente(avaliacao);
+		return avaliacaoDaoImpl.countPorAvaliadoEPendente(avaliacao);
 	}
 
 }

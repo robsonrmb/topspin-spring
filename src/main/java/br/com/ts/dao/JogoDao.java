@@ -1,9 +1,5 @@
 package br.com.ts.dao;
 
-import java.util.List;
-
-import javax.persistence.TypedQuery;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

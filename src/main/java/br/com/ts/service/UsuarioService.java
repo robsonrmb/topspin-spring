@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.ts.dao.AmigoDao;
 import br.com.ts.dao.UsuarioDao;
 import br.com.ts.dao.dinamic.UsuarioDaoImpl;
 import br.com.ts.domain.Amigo;
@@ -28,6 +29,9 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioDaoImpl usuarioDaoImpl;
+	
+	@Autowired
+	private AmigoDao amigoDao;
 	
 	public void insert(Usuario usuario) {
 		usuario.setId(null);
@@ -49,8 +53,9 @@ public class UsuarioService {
 	}
 
 	public void update(Usuario usuario) {
-		find(usuario.getId());
-		usuarioDao.save(usuario);
+		Usuario usu = find(usuario.getId());
+		RegrasNegocioService.umUsuarioSoPodeAlterarSeuProprioCadastro(usu);
+		usuarioDao.save(usu);
 	}
 
 	public void delete(Long id) {
@@ -87,28 +92,28 @@ public class UsuarioService {
 	
 	@Transactional(readOnly = true)
 	public Usuario buscaPorEmail(String email) {
-		return null; //TODO usuarioDao.buscaPorEmail(email);
+		return usuarioDao.buscaPorEmail(email);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<Usuario> listaPorNome(String nome) {
-		return null; //TODO usuarioDao.listaPorNome(nome);
+		return usuarioDaoImpl.listaPorNome(nome);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<Usuario> listaPorEstado(String estado) {
-		return null; //TODO usuarioDao.listaPorEstado(estado);
+		return usuarioDaoImpl.listaPorEstado(estado);
 	}
 
 	public List<Usuario> listaPorFiltro(Usuario usuario) {
-		return null; //TODO usuarioDao.listaPorFiltro(usuario);
+		return usuarioDaoImpl.listaPorFiltro(usuario);
 	}
 	
 	public List<Usuario> listaPorFiltroComFlagAmigo(Usuario usuario) {
-		List<Usuario> lista = null; //TODO usuarioDao.listaPorFiltro(usuario);
+		List<Usuario> lista = usuarioDaoImpl.listaPorFiltro(usuario);
 		for (Usuario u: lista) {
-			UsuarioAmigoDTO formUsuarioAmigo = new UsuarioAmigoDTO(usuario.getId(), u.getId());
-			Amigo amigo = null; //TODO amigoDao.buscaAmigo(formUsuarioAmigo);
+			UsuarioAmigoDTO usuarioAmigoDTO = new UsuarioAmigoDTO(usuario.getId(), u.getId());
+			Amigo amigo = amigoDao.buscaAmigo(usuarioAmigoDTO.getIdUsuario(), usuarioAmigoDTO.getIdAmigo());
 			if (amigo != null) {
 				u.setAmigo(true);
 			}else {

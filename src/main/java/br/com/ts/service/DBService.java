@@ -111,7 +111,11 @@ public class DBService {
 		TipoEstatistica te8 = new TipoEstatistica(null, "TATICO");
 		TipoEstatistica te9 = new TipoEstatistica(null, "COMPETITIVO");
 		TipoEstatistica te10 = new TipoEstatistica(null, "PREPARO");
-		tipoEstatisticaDao.saveAll(Arrays.asList(te1, te2, te3, te4, te5, te6, te7, te8, te9, te10));
+		TipoEstatistica te11 = new TipoEstatistica(null, "VITORIA");
+		TipoEstatistica te12 = new TipoEstatistica(null, "DERROTA");
+		TipoEstatistica te13 = new TipoEstatistica(null, "TIEBREAKVENCIDO");
+		TipoEstatistica te14 = new TipoEstatistica(null, "TIEBREAKPERDIDO");
+		tipoEstatisticaDao.saveAll(Arrays.asList(te1, te2, te3, te4, te5, te6, te7, te8, te9, te10, te11, te12, te13, te14));
 		
 		TipoRespostaEstatistica tre1 = new TipoRespostaEstatistica(null, "RUIM");
 		TipoRespostaEstatistica tre2 = new TipoRespostaEstatistica(null, "REGULAR");
