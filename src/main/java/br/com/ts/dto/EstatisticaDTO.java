@@ -1,6 +1,9 @@
 package br.com.ts.dto;
 
-public class EstatisticaDTO {
+import java.io.Serializable;
+
+public class EstatisticaDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private long id;
 	private long idUsuario;

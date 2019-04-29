@@ -1,6 +1,9 @@
 package br.com.ts.dto;
 
-public class CadastroLoginDTO {
+import java.io.Serializable;
+
+public class CadastroLoginDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private String nome;
 	private String email;

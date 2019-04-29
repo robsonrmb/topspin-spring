@@ -1,9 +1,11 @@
 package br.com.ts.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class AvaliacaoResultDTO {
+public class AvaliacaoResultDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private long id;
 	private long idUsuario;

@@ -1,8 +1,11 @@
 package br.com.ts.dto;
 
+import java.io.Serializable;
+
 import br.com.ts.domain.TipoAvaliacao;
 
-public class AreaAvaliacaoDTO {
+public class AreaAvaliacaoDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private long id;
 	private long nome;

@@ -1,6 +1,9 @@
 package br.com.ts.dto;
 
-public class RespPerformanceDTO {
+import java.io.Serializable;
+
+public class RespPerformanceDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private int ruim;
 	private int regular;

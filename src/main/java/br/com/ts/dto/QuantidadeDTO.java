@@ -1,6 +1,9 @@
 package br.com.ts.dto;
 
-public class QuantidadeDTO {
+import java.io.Serializable;
+
+public class QuantidadeDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private int quantidade;
 	

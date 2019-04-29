@@ -41,14 +41,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		"/h2-console/**"
 	};
 	
-	private static final String[] PUBLIC_MATCHERS_TS = {
+	private static final String[] PUBLIC_MATCHERS_GET_TS = {
 		"/amigos/**",
 		"/area-avaliacoes/**",
 		"/avaliacoes/**",
 		"/convites/**",
 		"/estatisticas/**",
 		"/jogos/**",
-		"/tipoavaliacoes/**",
+		"/tipoavaliacoes/**"
+	};
+	
+	private static final String[] PUBLIC_MATCHERS_POST_TS = {
 		"/usuarios/**"
 	};
 	
@@ -62,8 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 		
 		http.authorizeRequests()
-			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_TS).permitAll()
 			.antMatchers(PUBLIC_MATCHERS_H2).permitAll()
+			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET_TS).permitAll()
+			.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST_TS).permitAll()
 			.anyRequest().authenticated();
 		
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));

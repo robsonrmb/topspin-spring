@@ -1,11 +1,13 @@
 package br.com.ts.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class JogoDTO {
+public class JogoDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private long id;
 	

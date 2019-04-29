@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
 public class UsuarioAmigoDTO implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 	
 	private long id;

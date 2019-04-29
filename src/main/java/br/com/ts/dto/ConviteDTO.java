@@ -1,8 +1,10 @@
 package br.com.ts.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ConviteDTO {
+public class ConviteDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private long id;
 	private long idUsuario;
