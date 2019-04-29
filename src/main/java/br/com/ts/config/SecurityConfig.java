@@ -48,11 +48,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		"/convites/**",
 		"/estatisticas/**",
 		"/jogos/**",
-		"/tipoavaliacoes/**"
+		"/tipoavaliacoes/**",
+		"/usuarios/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST_TS = {
-		"/usuarios/**"
+		"/usuarios/**",
+		"/auth/nova_senha/**"
 	};
 	
 	@Override

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ts.dto.EmailDTO;
 import br.com.ts.security.JWTUtil;
 import br.com.ts.security.UserSS;
+import br.com.ts.service.AuthService;
 import br.com.ts.service.AuthenticationService;
 
 @RestController
@@ -23,7 +24,7 @@ public class AuthResource {
 	private JWTUtil jwtUtil;
 	
 	@Autowired
-	private AuthenticationService authService;
+	private AuthService authService;
 	
 	@RequestMapping(value="/refresh_token", method=RequestMethod.POST)
 	public ResponseEntity<Void> refreshToken(HttpServletResponse response) {
@@ -33,7 +34,7 @@ public class AuthResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value="/novaSenha", method=RequestMethod.POST)
+	@RequestMapping(value="/nova_senha", method=RequestMethod.POST)
 	public ResponseEntity<Void> novaSenha(@Valid @RequestBody EmailDTO emailDTO) {
 		authService.sendNewPassword(emailDTO.getEmail());
 		return ResponseEntity.noContent().build();
