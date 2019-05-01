@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,9 @@ public class UsuarioService {
 	@Autowired
 	private AmigoDao amigoDao;
 	
+	@Autowired
+	private BCryptPasswordEncoder pe;
+	
 	public void insert(Usuario usuario) {
 		usuario.setId(null);
 		usuarioDao.save(usuario);
@@ -40,7 +44,7 @@ public class UsuarioService {
 	
 	public Usuario insert(CadastroLoginDTO cadastroLoginDTO) {
 		
-		Usuario usuario = new Usuario(cadastroLoginDTO.getNome(), cadastroLoginDTO.getEmail(), cadastroLoginDTO.getEstado(), cadastroLoginDTO.getSexo(), "A");
+		Usuario usuario = new Usuario(cadastroLoginDTO.getNome(), cadastroLoginDTO.getEmail(), pe.encode(cadastroLoginDTO.getSenha()), cadastroLoginDTO.getEstado(), cadastroLoginDTO.getSexo(), "A");
 		usuario.setId(null);
 		usuarioDao.save(usuario);
 		

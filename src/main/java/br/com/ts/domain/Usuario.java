@@ -119,10 +119,11 @@ public class Usuario implements Serializable {
 		addPerfil(Perfil.USUARIO);
 	}
 	
-	public Usuario(String nome, String email, String estado, String sexo, String status) {
+	public Usuario(String nome, String email, String senha, String estado, String sexo, String status) {
 		super();
 		this.nome = nome;
 		this.email = email;
+		this.senha = senha;
 		this.estado = estado;
 		this.sexo = sexo;
 		this.status = status;
