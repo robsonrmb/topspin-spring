@@ -29,7 +29,7 @@ public class TestConfig {
 		System.out.println("Utilizando banco de dados H2.");
 		System.out.println("Estratégia de criação de banco: "+ strategy); 
 		
-		dbService.instanciandoBancoDeDados();
+		dbService.instanciandoBancoDeDadosH2();
 		return true;
 	}
 	

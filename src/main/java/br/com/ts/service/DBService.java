@@ -64,7 +64,9 @@ public class DBService {
 	@Autowired
 	private ConviteDao conviteDao;
 
-	public void instanciandoBancoDeDados() throws ParseException {
+	public void instanciandoBancoDeDadosH2() throws ParseException {
+		
+		instanciandoBancoDeDados();
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
@@ -79,6 +81,23 @@ public class DBService {
 		Amigo amigo = new Amigo(null, usu1, usu2);
 		amigoDao.save(amigo);
 		
+		Jogo jogo1 = new Jogo(null, new Date(), "0", "V", "0", 0, 0, usu1, null);
+		Jogo jogo2 = new Jogo(null, new Date(), "2", "V", "0", 0, 0, usu1, null);
+		Jogo jogo3 = new Jogo(null, new Date(), "0", "D", "4", 0, 0, usu1, null);
+		Jogo jogo4 = new Jogo(null, new Date(), "0", "V", "0", 0, 0, usu4, null);
+		jogoDao.saveAll(Arrays.asList(jogo1, jogo2, jogo3, jogo4));
+		
+		Convite cvt1 = new Convite(null, usu1, usu2, new Date(), "0", "AABB", "Vamos nessa!!!", "P");
+		Convite cvt2 = new Convite(null, usu1, usu3, new Date(), "0", "AABB", "Topa!!!", "P");
+		Convite cvt3 = new Convite(null, usu3, usu4, new Date(), "0", "SQA", "Sem chance!!!", "P");
+		conviteDao.saveAll(Arrays.asList(cvt1, cvt2, cvt3));
+	}
+
+	public void instanciandoBancoDeDadosMySQL() {
+		instanciandoBancoDeDados();
+	}
+	
+	private void instanciandoBancoDeDados() {
 		AreaAvaliacao area1 = new AreaAvaliacao(null, "Avaliações Técnicas");
 		AreaAvaliacao area2 = new AreaAvaliacao(null, "Avaliações Táticas");
 		areaAvaliacaoDao.saveAll(Arrays.asList(area1, area2));
@@ -122,17 +141,6 @@ public class DBService {
 		TipoRespostaEstatistica tre3 = new TipoRespostaEstatistica(null, "BOM");
 		TipoRespostaEstatistica tre4 = new TipoRespostaEstatistica(null, "ÓTIMO");
 		tipoRespostaEstatisticaDao.saveAll(Arrays.asList(tre1, tre2, tre3, tre4));
-		
-		Jogo jogo1 = new Jogo(null, new Date(), "0", "V", "0", 0, 0, usu1, null);
-		Jogo jogo2 = new Jogo(null, new Date(), "2", "V", "0", 0, 0, usu1, null);
-		Jogo jogo3 = new Jogo(null, new Date(), "0", "D", "4", 0, 0, usu1, null);
-		Jogo jogo4 = new Jogo(null, new Date(), "0", "V", "0", 0, 0, usu4, null);
-		jogoDao.saveAll(Arrays.asList(jogo1, jogo2, jogo3, jogo4));
-		
-		Convite cvt1 = new Convite(null, usu1, usu2, new Date(), "0", "AABB", "Vamos nessa!!!", "P");
-		Convite cvt2 = new Convite(null, usu1, usu3, new Date(), "0", "AABB", "Topa!!!", "P");
-		Convite cvt3 = new Convite(null, usu3, usu4, new Date(), "0", "SQA", "Sem chance!!!", "P");
-		conviteDao.saveAll(Arrays.asList(cvt1, cvt2, cvt3));
 	}
 
 }

@@ -104,6 +104,7 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<Contabilizacao> contabilizacoes;
 	
+	@JsonIgnore
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="PERFIS")
 	private Set<Integer> perfis = new HashSet<>();

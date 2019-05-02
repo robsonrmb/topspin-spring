@@ -12,6 +12,8 @@ import br.com.ts.dao.UsuarioDao;
 import br.com.ts.domain.Amigo;
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.UsuarioAmigoDTO;
+import br.com.ts.service.exception.DataIntegrityException;
+import br.com.ts.service.exception.RegraNegocioException;
 
 @Service 
 @Transactional(readOnly = false)
@@ -31,6 +33,11 @@ public class AmigoService {
 		amigo.setId(null);
 		amigo.setUsuario(usuario);
 		amigo.setAmigo(uAmigo);
+		
+		Amigo amig = amigoDao.buscaAmigo(usuario.getId(), uAmigo.getId());
+		if (amig != null) {
+			throw new RegraNegocioException("Este usuário já está cadastrado como um amigo!!!");
+		}
 		
 		amigoDao.save(amigo);
 	}

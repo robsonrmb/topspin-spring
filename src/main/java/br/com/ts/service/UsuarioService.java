@@ -57,9 +57,22 @@ public class UsuarioService {
 	}
 
 	public void update(Usuario usuario) {
-		Usuario usu = find(usuario.getId());
-		RegrasNegocioService.umUsuarioSoPodeAlterarSeuProprioCadastro(usu);
-		usuarioDao.save(usu);
+		Usuario usuarioBanco = find(usuario.getId());
+		RegrasNegocioService.umUsuarioSoPodeAlterarSeuProprioCadastro(usuarioBanco);
+		parse(usuarioBanco, usuario);
+		usuarioDao.save(usuarioBanco);
+	}
+
+	private void parse(Usuario usuarioBanco, Usuario usuarioNovo) {
+		usuarioBanco.setNome(usuarioNovo.getNome());
+		usuarioBanco.setApelido(usuarioNovo.getApelido());
+		usuarioBanco.setDataNascimento(usuarioNovo.getDataNascimento());
+		usuarioBanco.setEstado(usuarioNovo.getEstado());
+		usuarioBanco.setCidade(usuarioNovo.getCidade());
+		usuarioBanco.setOndeJoga(usuarioNovo.getOndeJoga());
+		usuarioBanco.setSexo(usuarioNovo.getSexo());
+		usuarioBanco.setTipo(usuarioNovo.getTipo());
+		usuarioBanco.setNivel(usuarioNovo.getNivel());
 	}
 
 	public void delete(Long id) {

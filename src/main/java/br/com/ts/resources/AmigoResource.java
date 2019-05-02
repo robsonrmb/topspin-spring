@@ -44,7 +44,7 @@ public class AmigoResource {
 	    return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
   	
-	@DeleteMapping
+	@PostMapping(value="/remove") //TODO USAR O MÉTODO DELETE - PASSAR APENAS O ID DO USUÁRIO AMIGO
     public ResponseEntity<Void> remove(@RequestBody UsuarioAmigoDTO usuarioAmigoDTO){
       	amigoService.delete(usuarioAmigoDTO);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);

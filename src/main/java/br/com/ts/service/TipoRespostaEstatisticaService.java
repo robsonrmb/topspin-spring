@@ -16,7 +16,7 @@ public class TipoRespostaEstatisticaService {
 	
 	@Transactional(readOnly = true)
 	public TipoRespostaEstatistica buscaPorNome(String nome) {
-		return null; //TODO tipoRespostaEstatisticaDao.buscaPorNome(nome);
+		return tipoRespostaEstatisticaDao.buscaPorNome(nome);
 	}
 
 	public TipoRespostaEstatistica findById(long id) {

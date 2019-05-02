@@ -13,10 +13,23 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import br.com.ts.service.exception.AuthorizationException;
 import br.com.ts.service.exception.DataIntegrityException;
 import br.com.ts.service.exception.ObjectNotFoundException;
+import br.com.ts.service.exception.RegraNegocioException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
+	@ExceptionHandler(RegraNegocioException.class)
+	public ResponseEntity<StandardError> regraNegocio(RegraNegocioException e, HttpServletRequest request) {
+		
+		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), 
+											  e.getMessage(), 
+											  System.currentTimeMillis(), 
+											  ExceptionUtils.getRootCauseMessage(e), 
+											  ExceptionUtils.getStackTrace(e));
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+	
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
 		

@@ -6,29 +6,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.ts.dao.ContabilizacaoDao;
-import br.com.ts.dao.ConviteDao;
-import br.com.ts.dao.JogoDao;
+import br.com.ts.dao.dinamic.ContabilizacaoDaoImpl;
+import br.com.ts.dao.dinamic.ConviteDaoImpl;
+import br.com.ts.dao.dinamic.JogoDaoImpl;
 import br.com.ts.domain.Contabilizacao;
 import br.com.ts.domain.Convite;
 import br.com.ts.domain.Jogo;
 import br.com.ts.domain.Usuario;
 
-@Service @Transactional(readOnly = false)
+@Service 
+@Transactional(readOnly = false)
 public class ContabilizacaoService {
 
 	@Autowired
-	private ContabilizacaoDao contabilizacaoDao;
+	private ContabilizacaoDaoImpl contabilizacaoDaoImpl;
 	
 	@Autowired
-	private ConviteDao conviteDao;
+	private ConviteDaoImpl conviteDaoImpl;
 	
 	@Autowired
-	private JogoDao jogoDao;
+	private JogoDaoImpl jogoDaoImpl;
 	
 	public void salva(Contabilizacao contabilizacao, String tipo) {
 		
-		List<Contabilizacao> listaDeContabilizacao = null; //TODO contabilizacaoDao.buscaPorUsuarioAno(contabilizacao.getUsuario().getId(), contabilizacao.getAno());
+		List<Contabilizacao> listaDeContabilizacao = contabilizacaoDaoImpl.buscaPorUsuarioAno(contabilizacao.getUsuario().getId(), contabilizacao.getAno());
 		
 		if (listaDeContabilizacao != null && listaDeContabilizacao.size() > 1) {
 			System.out.println("Erro na gravação da contabilizacao... Verificar!!!");
@@ -42,7 +43,7 @@ public class ContabilizacaoService {
 			}else {
 				contabilizacao.setQuantidadeAvaliacaoRecusada(1);
 			}
-			contabilizacaoDao.save(contabilizacao);
+			contabilizacaoDaoImpl.save(contabilizacao);
 		}
 	}
 
@@ -56,7 +57,7 @@ public class ContabilizacaoService {
 
 	public int countContabilizacaoGeralDeAvaliacoesAceitasPorUsuario(Long idUsuario) {
 		
-		List<Contabilizacao> listaDeContabilizacao = null; //TODO contabilizacaoDao.buscaPorUsuarioAno(idUsuario, 0);
+		List<Contabilizacao> listaDeContabilizacao = contabilizacaoDaoImpl.buscaPorUsuarioAno(idUsuario, 0);
 		
 		int contador = 0;
 		for (Contabilizacao c: listaDeContabilizacao) {
@@ -67,7 +68,7 @@ public class ContabilizacaoService {
 	
 	public int countContabilizacaoGeralDeAvaliacoesRecusadasPorUsuario(Long idUsuario) {
 		
-		List<Contabilizacao> listaDeContabilizacao = null; //TODO contabilizacaoDao.buscaPorUsuarioAno(idUsuario, 0);
+		List<Contabilizacao> listaDeContabilizacao = contabilizacaoDaoImpl.buscaPorUsuarioAno(idUsuario, 0);
 		
 		int contador = 0;
 		for (Contabilizacao c: listaDeContabilizacao) {
@@ -83,7 +84,7 @@ public class ContabilizacaoService {
 		Convite convite = new Convite();
 		convite.setConvidado(usuario);
 		convite.setStatus("A");
-		int qtd = 0; //TODO conviteDao.countPorConvidadoEStatus(convite);
+		int qtd = conviteDaoImpl.countPorConvidadoEStatus(convite);
 		return qtd;
 	}
 
@@ -94,7 +95,7 @@ public class ContabilizacaoService {
 		Convite convite = new Convite();
 		convite.setConvidado(usuario);
 		convite.setStatus("R");
-		int qtd = 0; //TODO conviteDao.countPorConvidadoEStatus(convite);
+		int qtd = conviteDaoImpl.countPorConvidadoEStatus(convite);
 		return qtd;
 	}
 
@@ -104,7 +105,7 @@ public class ContabilizacaoService {
 		
 		Convite convite = new Convite();
 		convite.setUsuario(usuario);
-		int qtd = 0; //TODO conviteDao.countConvitesEnviadosPorUsuario(convite);
+		int qtd = conviteDaoImpl.countConvitesEnviadosPorUsuario(convite);
 		return qtd;
 	}
 
@@ -114,7 +115,7 @@ public class ContabilizacaoService {
 		
 		Jogo jogo = new Jogo();
 		jogo.setUsuario(usuario);
-		int qtd = 0; //TODO jogoDao.countJogosRealizadoPorUsuario(jogo);
+		int qtd = jogoDaoImpl.countJogosRealizadoPorUsuario(jogo);
 		return qtd;
 	}
 
