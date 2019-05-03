@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -120,27 +122,30 @@ public class DBService {
 		TipoRespostaAvaliacao tra4 = new TipoRespostaAvaliacao(null, "ÓTIMO");
 		tipoRespostaAvaliacaoDao.saveAll(Arrays.asList(tra1, tra2, tra3, tra4));
 		
-		TipoEstatistica te1 = new TipoEstatistica(null, "SAQUE");
-		TipoEstatistica te2 = new TipoEstatistica(null, "FOREHAND");
-		TipoEstatistica te3 = new TipoEstatistica(null, "BACKHAND");
-		TipoEstatistica te4 = new TipoEstatistica(null, "VOLEIO");
-		TipoEstatistica te5 = new TipoEstatistica(null, "SMASH");
-		TipoEstatistica te6 = new TipoEstatistica(null, "OFENSIVO");
-		TipoEstatistica te7 = new TipoEstatistica(null, "DEFENSIVO");
-		TipoEstatistica te8 = new TipoEstatistica(null, "TATICO");
-		TipoEstatistica te9 = new TipoEstatistica(null, "COMPETITIVO");
-		TipoEstatistica te10 = new TipoEstatistica(null, "PREPARO");
-		TipoEstatistica te11 = new TipoEstatistica(null, "VITORIA");
-		TipoEstatistica te12 = new TipoEstatistica(null, "DERROTA");
-		TipoEstatistica te13 = new TipoEstatistica(null, "TIEBREAKVENCIDO");
-		TipoEstatistica te14 = new TipoEstatistica(null, "TIEBREAKPERDIDO");
-		tipoEstatisticaDao.saveAll(Arrays.asList(te1, te2, te3, te4, te5, te6, te7, te8, te9, te10, te11, te12, te13, te14));
-		
 		TipoRespostaEstatistica tre1 = new TipoRespostaEstatistica(null, "RUIM");
 		TipoRespostaEstatistica tre2 = new TipoRespostaEstatistica(null, "REGULAR");
 		TipoRespostaEstatistica tre3 = new TipoRespostaEstatistica(null, "BOM");
 		TipoRespostaEstatistica tre4 = new TipoRespostaEstatistica(null, "ÓTIMO");
 		tipoRespostaEstatisticaDao.saveAll(Arrays.asList(tre1, tre2, tre3, tre4));
+		
+		Set<TipoRespostaEstatistica> lista_tre = new HashSet<>();
+		lista_tre.add(tre1); lista_tre.add(tre2); lista_tre.add(tre3); lista_tre.add(tre4);
+		
+		TipoEstatistica te1 = new TipoEstatistica(null, "SAQUE", lista_tre);
+		TipoEstatistica te2 = new TipoEstatistica(null, "FOREHAND", lista_tre);
+		TipoEstatistica te3 = new TipoEstatistica(null, "BACKHAND", lista_tre);
+		TipoEstatistica te4 = new TipoEstatistica(null, "VOLEIO", lista_tre);
+		TipoEstatistica te5 = new TipoEstatistica(null, "SMASH", lista_tre);
+		TipoEstatistica te6 = new TipoEstatistica(null, "OFENSIVO", lista_tre);
+		TipoEstatistica te7 = new TipoEstatistica(null, "DEFENSIVO", lista_tre);
+		TipoEstatistica te8 = new TipoEstatistica(null, "TATICO", lista_tre);
+		TipoEstatistica te9 = new TipoEstatistica(null, "COMPETITIVO", lista_tre);
+		TipoEstatistica te10 = new TipoEstatistica(null, "PREPARO", lista_tre);
+		TipoEstatistica te11 = new TipoEstatistica(null, "VITORIA", lista_tre);
+		TipoEstatistica te12 = new TipoEstatistica(null, "DERROTA", lista_tre);
+		TipoEstatistica te13 = new TipoEstatistica(null, "TIEBREAKVENCIDO", lista_tre);
+		TipoEstatistica te14 = new TipoEstatistica(null, "TIEBREAKPERDIDO", lista_tre);
+		tipoEstatisticaDao.saveAll(Arrays.asList(te1, te2, te3, te4, te5, te6, te7, te8, te9, te10, te11, te12, te13, te14));
 	}
 
 }

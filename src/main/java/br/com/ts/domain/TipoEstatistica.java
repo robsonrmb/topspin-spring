@@ -35,6 +35,13 @@ public class TipoEstatistica implements Serializable {
 		this.nome = nome;
 	}
 
+	public TipoEstatistica(Long id, String nome, Set<TipoRespostaEstatistica> tipoRespostas) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.tipoRespostas = tipoRespostas;
+	}
+
 	public Long getId() {
 		return id;
 	}
