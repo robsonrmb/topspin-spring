@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ts.dao.ConviteDao;
+import br.com.ts.dao.dinamic.ConviteDaoImpl;
 import br.com.ts.domain.Convite;
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.ConviteDTO;
@@ -18,6 +19,9 @@ public class ConviteService {
 
 	@Autowired
 	private ConviteDao conviteDao;
+	
+	@Autowired
+	private ConviteDaoImpl conviteDaoImpl;
 	
 	@Autowired
 	private UsuarioService usuarioService;
@@ -79,21 +83,21 @@ public class ConviteService {
 	
 	@Transactional(readOnly = true)
 	public List<Convite> listaPorUsuarioEStatus(Convite convite) {
-		return null; //TODO conviteDao.listaPorUsuarioEStatus(convite);
+		return conviteDaoImpl.listaPorUsuarioEStatus(convite);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<Convite> listaPorConvidadoEStatus(Convite convite) {
-		return null; //TODO conviteDao.listaPorConvidadoEStatus(convite);
+		return conviteDaoImpl.listaPorConvidadoEStatus(convite);
 	}
 
 	public List<Convite> listaPorConvidadoENaoPendentes(Convite convite) {
-		return null; //TODO conviteDao.listaPorConvidadoENaoPendentes(convite);
+		return conviteDaoImpl.listaPorConvidadoENaoPendentes(convite);
 	}
 	
 	public int countPorConvidadoEPendentes(Convite convite) {
 		convite.setStatus("P");
-		return 0; //TODO conviteDao.countPorConvidadoEStatus(convite);
+		return conviteDaoImpl.countPorConvidadoEStatus(convite);
 	}
 
 }

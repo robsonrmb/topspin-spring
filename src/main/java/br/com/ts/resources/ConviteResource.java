@@ -169,21 +169,23 @@ public class ConviteResource {
   	
   	private List<ConviteDTO> converteParaFormConvite(List<Convite> listaDeConvites) {
 		List<ConviteDTO> listaFC = new ArrayList<ConviteDTO>();
-		for(Convite c: listaDeConvites) {
-			ConviteDTO fc = new ConviteDTO();
-			fc.setId(c.getId());
-			fc.setIdUsuario(c.getUsuario().getId());
-			fc.setIdConvidado(c.getConvidado().getId());
-			fc.setData(c.getData());
-			fc.setPeriodo(c.getPeriodo());
-			fc.setLocalJogo(c.getLocalJogo());
-			fc.setDescricao(c.getDescricao());
-			fc.setStatus(c.getStatus());
-			
-			fc.setNomeUsuario(c.getUsuario().getNome());
-			fc.setNomeConvidado(c.getConvidado().getNome());
-			
-			listaFC.add(fc);
+		if (listaDeConvites != null) {
+			for(Convite c: listaDeConvites) {
+				ConviteDTO fc = new ConviteDTO();
+				fc.setId(c.getId());
+				fc.setIdUsuario(c.getUsuario().getId());
+				fc.setIdConvidado(c.getConvidado().getId());
+				fc.setData(c.getData());
+				fc.setPeriodo(c.getPeriodo());
+				fc.setLocalJogo(c.getLocalJogo());
+				fc.setDescricao(c.getDescricao());
+				fc.setStatus(c.getStatus());
+				
+				fc.setNomeUsuario(c.getUsuario().getNome());
+				fc.setNomeConvidado(c.getConvidado().getNome());
+				
+				listaFC.add(fc);
+			}
 		}
 		return listaFC;
 	}
