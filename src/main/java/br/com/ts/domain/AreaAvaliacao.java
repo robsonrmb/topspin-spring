@@ -22,7 +22,6 @@ public class AreaAvaliacao implements Serializable {
 	@Column(name = "nome", nullable = false, unique = true, length = 60)
 	private String nome;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy="areaAvaliacao")
 	private List<TipoAvaliacao> tipo;
 	

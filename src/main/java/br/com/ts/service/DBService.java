@@ -104,23 +104,26 @@ public class DBService {
 		AreaAvaliacao area2 = new AreaAvaliacao(null, "Avaliações Táticas");
 		areaAvaliacaoDao.saveAll(Arrays.asList(area1, area2));
 		
-		TipoAvaliacao ta1 = new TipoAvaliacao(null, "SAQUE", area1);
-		TipoAvaliacao ta2 = new TipoAvaliacao(null, "FOREHAND", area1);
-		TipoAvaliacao ta3 = new TipoAvaliacao(null, "BACKHAND", area1);
-		TipoAvaliacao ta4 = new TipoAvaliacao(null, "VOLEIO", area1);
-		TipoAvaliacao ta5 = new TipoAvaliacao(null, "SMASH", area1);
-		TipoAvaliacao ta6 = new TipoAvaliacao(null, "OFENSIVO", area2);
-		TipoAvaliacao ta7 = new TipoAvaliacao(null, "DEFENSIVO", area2);
-		TipoAvaliacao ta8 = new TipoAvaliacao(null, "TATICO", area2);
-		TipoAvaliacao ta9 = new TipoAvaliacao(null, "COMPETITIVO", area2);
-		TipoAvaliacao ta10 = new TipoAvaliacao(null, "PREPARO", area2);
-		tipoAvaliacaoDao.saveAll(Arrays.asList(ta1, ta2, ta3, ta4, ta5, ta6, ta7, ta8, ta9, ta10));
-		
 		TipoRespostaAvaliacao tra1 = new TipoRespostaAvaliacao(null, "RUIM");
 		TipoRespostaAvaliacao tra2 = new TipoRespostaAvaliacao(null, "REGULAR");
 		TipoRespostaAvaliacao tra3 = new TipoRespostaAvaliacao(null, "BOM");
 		TipoRespostaAvaliacao tra4 = new TipoRespostaAvaliacao(null, "ÓTIMO");
 		tipoRespostaAvaliacaoDao.saveAll(Arrays.asList(tra1, tra2, tra3, tra4));
+		
+		Set<TipoRespostaAvaliacao> lista_tra = new HashSet<>();
+		lista_tra.add(tra1); lista_tra.add(tra2); lista_tra.add(tra3); lista_tra.add(tra4);
+		
+		TipoAvaliacao ta1 = new TipoAvaliacao(null, "SAQUE", area1, lista_tra);
+		TipoAvaliacao ta2 = new TipoAvaliacao(null, "FOREHAND", area1, lista_tra);
+		TipoAvaliacao ta3 = new TipoAvaliacao(null, "BACKHAND", area1, lista_tra);
+		TipoAvaliacao ta4 = new TipoAvaliacao(null, "VOLEIO", area1, lista_tra);
+		TipoAvaliacao ta5 = new TipoAvaliacao(null, "SMASH", area1, lista_tra);
+		TipoAvaliacao ta6 = new TipoAvaliacao(null, "OFENSIVO", area2, lista_tra);
+		TipoAvaliacao ta7 = new TipoAvaliacao(null, "DEFENSIVO", area2, lista_tra);
+		TipoAvaliacao ta8 = new TipoAvaliacao(null, "TATICO", area2, lista_tra);
+		TipoAvaliacao ta9 = new TipoAvaliacao(null, "COMPETITIVO", area2, lista_tra);
+		TipoAvaliacao ta10 = new TipoAvaliacao(null, "PREPARO", area2, lista_tra);
+		tipoAvaliacaoDao.saveAll(Arrays.asList(ta1, ta2, ta3, ta4, ta5, ta6, ta7, ta8, ta9, ta10));
 		
 		TipoRespostaEstatistica tre1 = new TipoRespostaEstatistica(null, "RUIM");
 		TipoRespostaEstatistica tre2 = new TipoRespostaEstatistica(null, "REGULAR");
@@ -141,10 +144,10 @@ public class DBService {
 		TipoEstatistica te8 = new TipoEstatistica(null, "TATICO", lista_tre);
 		TipoEstatistica te9 = new TipoEstatistica(null, "COMPETITIVO", lista_tre);
 		TipoEstatistica te10 = new TipoEstatistica(null, "PREPARO", lista_tre);
-		TipoEstatistica te11 = new TipoEstatistica(null, "VITORIA", lista_tre);
-		TipoEstatistica te12 = new TipoEstatistica(null, "DERROTA", lista_tre);
-		TipoEstatistica te13 = new TipoEstatistica(null, "TIEBREAKVENCIDO", lista_tre);
-		TipoEstatistica te14 = new TipoEstatistica(null, "TIEBREAKPERDIDO", lista_tre);
+		TipoEstatistica te11 = new TipoEstatistica(null, "VITORIA");
+		TipoEstatistica te12 = new TipoEstatistica(null, "DERROTA");
+		TipoEstatistica te13 = new TipoEstatistica(null, "TIEBREAKVENCIDO");
+		TipoEstatistica te14 = new TipoEstatistica(null, "TIEBREAKPERDIDO");
 		tipoEstatisticaDao.saveAll(Arrays.asList(te1, te2, te3, te4, te5, te6, te7, te8, te9, te10, te11, te12, te13, te14));
 	}
 

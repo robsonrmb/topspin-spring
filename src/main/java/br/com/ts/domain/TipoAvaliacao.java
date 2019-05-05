@@ -40,6 +40,14 @@ public class TipoAvaliacao implements Serializable {
 		this.areaAvaliacao = areaAvaliacao;
 	}
 
+	public TipoAvaliacao(Long id, String nome, AreaAvaliacao areaAvaliacao, Set<TipoRespostaAvaliacao> tipoRespostas) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.areaAvaliacao = areaAvaliacao;
+		this.tipoRespostas = tipoRespostas;
+	}
+
 	public Long getId() {
 		return id;
 	}
