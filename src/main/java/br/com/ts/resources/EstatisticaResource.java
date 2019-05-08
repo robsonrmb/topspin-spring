@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ts.domain.TipoEstatistica;
 import br.com.ts.domain.TipoRespostaEstatistica;
 import br.com.ts.dto.RespQuantidadeDTO;
-import br.com.ts.error.ResourceBadRequestException;
 import br.com.ts.service.ContabilizacaoService;
 import br.com.ts.service.EstatisticaService;
 import br.com.ts.service.TipoEstatisticaService;
+import br.com.ts.service.exception.RegraNegocioException;
 
 @CrossOrigin()
 @RestController
@@ -66,7 +66,7 @@ public class EstatisticaResource {
 		int qtdAvaliacoesAceita = contabilizacaoService.countContabilizacaoGeralDeAvaliacoesAceitasPorUsuario(id);
 		
 		if (qtdAvaliacoesAceita < 3) {
-			throw new ResourceBadRequestException("Para começar a visualizar suas estatísticas técnicas e táticas, você deve possuir pelo menos 3 avaliações aceitas.");
+			throw new RegraNegocioException("Para começar a visualizar suas estatísticas técnicas e táticas, você deve possuir pelo menos 3 avaliações aceitas.");
 		}
 		
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);

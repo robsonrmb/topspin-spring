@@ -24,8 +24,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.CadastroLoginDTO;
-import br.com.ts.error.ResourceBadRequestException;
 import br.com.ts.service.UsuarioService;
+import br.com.ts.service.exception.RegraNegocioException;
 
 @CrossOrigin()
 @RestController
@@ -50,7 +50,7 @@ public class UsuarioResource {
 	
 	private void verificaSeUsuarioExiste(Usuario usuario) {
 		if (!this.usuarioService.isExisteUsuario(usuario)) {
-    		throw new ResourceBadRequestException("Dados inválidos!!!");
+    		throw new RegraNegocioException("Dados inválidos!!!");
     	}
 	}
 

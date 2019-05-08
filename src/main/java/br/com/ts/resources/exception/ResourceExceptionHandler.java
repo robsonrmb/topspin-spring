@@ -55,7 +55,7 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(AuthorizationException.class)
-	public ResponseEntity<StandardError> dataIntegrity(AuthorizationException e, HttpServletRequest request) {
+	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
 		
 		StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), 
 											  e.getMessage(), 
