@@ -69,7 +69,7 @@ public class UsuarioResource {
 	@PutMapping
     public ResponseEntity<Void> atualiza(@RequestBody Usuario usuario) {
 		usuarioService.update(usuario);
-        return ResponseEntity.noContent().build();
+		return ResponseEntity.noContent().build();
     }
   	
   	@PreAuthorize("hasAnyrole('ADMIN')")
