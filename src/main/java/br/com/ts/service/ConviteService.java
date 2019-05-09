@@ -11,6 +11,9 @@ import br.com.ts.dao.dinamic.ConviteDaoImpl;
 import br.com.ts.domain.Convite;
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.ConviteDTO;
+import br.com.ts.enums.SituacaoConvite;
+import br.com.ts.service.exception.ObjectNotFoundException;
+import br.com.ts.service.exception.RegraNegocioException;
 import br.com.ts.service.mail.EmailService;
 
 @Service 
@@ -68,6 +71,13 @@ public class ConviteService {
 	}
 
 	public void exclui(Long id) {
+		Convite convite = buscaPorId(id);
+		if (convite == null) {
+			throw new ObjectNotFoundException("Convite de código "+ id + " não encontrado");
+		}
+		if (!SituacaoConvite.PENDENTE.getCodigo().equals(convite.getStatus())) {
+			throw new RegraNegocioException("Convites pendentes não podem ser excluídos.");
+		}
 		conviteDao.deleteById(id);
 	}
 

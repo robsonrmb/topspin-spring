@@ -119,14 +119,13 @@ public class ConviteResource {
 		return new ResponseEntity<QuantidadeDTO>(q, HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/add")
+	@PostMapping
     public ResponseEntity<Void> adiciona(@RequestBody ConviteDTO conviteDTO){
-		
 		conviteService.salva(conviteDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 	
-	@PutMapping(value="/update")
+	@PutMapping
     public ResponseEntity<Void> atualiza(@RequestBody Convite convite){
       	conviteService.atualiza(convite);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
@@ -144,10 +143,9 @@ public class ConviteResource {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
   	
-  	@DeleteMapping(value="/remove/{id}")
+  	@DeleteMapping(value="/{id}")
     public ResponseEntity<Void> remove(@PathVariable Long id){
-  		//verificar se pode excluir: somente o usuário do convite e somente se estiver pendente
-      	conviteService.exclui(id);
+  		conviteService.exclui(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
     
