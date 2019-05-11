@@ -20,6 +20,7 @@ import br.com.ts.dto.CadastroLoginDTO;
 import br.com.ts.dto.UsuarioAmigoDTO;
 import br.com.ts.service.exception.DataIntegrityException;
 import br.com.ts.service.exception.ObjectNotFoundException;
+import br.com.ts.service.exception.RegraNegocioException;
 
 @Service 
 @Transactional(readOnly = false)
@@ -46,7 +47,13 @@ public class UsuarioService {
 		
 		Usuario usuario = new Usuario(cadastroLoginDTO.getNome(), cadastroLoginDTO.getEmail(), pe.encode(cadastroLoginDTO.getSenha()), cadastroLoginDTO.getEstado(), cadastroLoginDTO.getSexo(), "A");
 		usuario.setId(null);
-		usuarioDao.save(usuario);
+		
+		Usuario u = buscaPorEmail(usuario.getEmail());
+		if (u == null) {
+			usuarioDao.save(usuario);
+		}else {
+			throw new RegraNegocioException("Email já cadastrado!!!");
+		}
 		
 		return usuario;
 	}

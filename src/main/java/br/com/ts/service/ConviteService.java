@@ -73,7 +73,7 @@ public class ConviteService {
 	public void exclui(Long id) {
 		Convite convite = buscaPorId(id);
 		if (convite == null) {
-			throw new ObjectNotFoundException("Convite de código "+ id + " não encontrado");
+			throw new ObjectNotFoundException("Convite de código "+ id + " não encontrado.");
 		}
 		if (!SituacaoConvite.PENDENTE.getCodigo().equals(convite.getStatus())) {
 			throw new RegraNegocioException("Convites pendentes não podem ser excluídos.");

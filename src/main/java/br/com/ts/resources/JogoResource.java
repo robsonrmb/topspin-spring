@@ -32,7 +32,7 @@ public class JogoResource {
 	@Autowired
 	private JogoService jogoService;
 	
-	@PostMapping(value="/add")
+	@PostMapping
     public ResponseEntity<Jogo> adiciona(@Valid @RequestBody JogoDTO jogoDTO){
 		Jogo jogo = jogoService.insert(jogoDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(jogo.getId()).toUri();

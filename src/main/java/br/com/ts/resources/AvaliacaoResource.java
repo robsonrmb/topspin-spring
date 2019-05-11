@@ -33,7 +33,7 @@ public class AvaliacaoResource {
 	@Autowired
 	private AvaliacaoService avaliacaoService;
 	
-	@PostMapping(value="/add")
+	@PostMapping
     public ResponseEntity<Void> adiciona(@RequestBody AvaliacaoDTO avaliacaoDTO){
 		avaliacaoService.salva(avaliacaoDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -57,10 +57,9 @@ public class AvaliacaoResource {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
   	
-  	@DeleteMapping(value="/remove/{id}")
+  	@DeleteMapping(value="/{id}")
     public ResponseEntity<Void> remove(@PathVariable Long id){
-  		//TODO verificar se pode excluir: somente o usuário da avaliacao e somente se estiver pendente
-      	avaliacaoService.exclui(id);
+  		avaliacaoService.exclui(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
   	

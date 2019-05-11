@@ -25,6 +25,9 @@ import br.com.ts.domain.TipoRespostaEstatistica;
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.AvaliacaoDTO;
 import br.com.ts.dto.AvaliacaoResultDTO;
+import br.com.ts.enums.SituacaoConvite;
+import br.com.ts.service.exception.ObjectNotFoundException;
+import br.com.ts.service.exception.RegraNegocioException;
 
 @Service @Transactional(readOnly = false)
 public class AvaliacaoService {
@@ -208,6 +211,10 @@ public class AvaliacaoService {
 	}
 
 	public void exclui(Long id) {
+		Avaliacao avaliacao = avaliacaoDao.findById(id).get();
+		if (avaliacao == null) {
+			throw new ObjectNotFoundException("Avaliação de código "+ id + " não encontrada.");
+		}
 		avaliacaoDao.deleteById(id);
 	}
 
