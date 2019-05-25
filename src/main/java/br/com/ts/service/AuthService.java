@@ -1,5 +1,10 @@
 package br.com.ts.service;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.ts.dao.UsuarioDao;
 import br.com.ts.domain.Usuario;
 import br.com.ts.service.exception.ObjectNotFoundException;
+import br.com.ts.service.mail.EmailService;
 
 @Service
 @Transactional(readOnly = false)
@@ -26,6 +32,9 @@ public class AuthService {
 	@Autowired
 	private BCryptPasswordEncoder pe;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	// MÉTODO QUE ATUALIZA UM NOVA SENHA PARA O USUÁRIO ENVIANDO O EMAIL COM A NOVA SENHA.
 	public void sendNewPassword(String email) {
 		
@@ -36,6 +45,17 @@ public class AuthService {
 		String novaSenha = novaSenha();
 		usuario.setSenha(pe.encode(novaSenha));
 		usuarioDao.save(usuario);
+		
+		emailService.sendNewPasswordEmail(usuario, novaSenha);
+		
+		//TESTE: LIXO
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+		BigDecimal valor = new BigDecimal("1700.0");
+		System.out.println(nf.format(valor));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date dataAtual = new Date();
+		System.out.println(sdf.format(dataAtual));
 	}
 
 	private String novaSenha() {

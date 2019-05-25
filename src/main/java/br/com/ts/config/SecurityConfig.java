@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST_TS = {
-		"/usuarios/**",
+		//"/usuarios/**",
 		"/auth/nova_senha/**"
 	};
 	
@@ -68,9 +68,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests()
 			.antMatchers(PUBLIC_MATCHERS_H2).permitAll()
-			.antMatchers(PUBLIC_MATCHERS_GET_TS).permitAll()
-			//.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET_TS).permitAll()
-			//.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST_TS).permitAll()
+			//.antMatchers(PUBLIC_MATCHERS_GET_TS).permitAll()
+			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET_TS).permitAll()
+			.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST_TS).permitAll()
 			.anyRequest().authenticated();
 		
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));

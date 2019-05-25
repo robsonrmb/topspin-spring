@@ -24,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.ts.domain.Usuario;
 import br.com.ts.dto.CadastroLoginDTO;
+import br.com.ts.dto.UserPassDTO;
 import br.com.ts.service.UsuarioService;
 import br.com.ts.service.exception.RegraNegocioException;
 
@@ -69,6 +70,12 @@ public class UsuarioResource {
 	@PutMapping
     public ResponseEntity<Void> atualiza(@RequestBody Usuario usuario) {
 		usuarioService.update(usuario);
+		return ResponseEntity.noContent().build();
+    }
+	
+	@PutMapping(value="/atualizaSenha")
+    public ResponseEntity<Void> atualizaSenha(@RequestBody UserPassDTO userPassDTO) {
+		usuarioService.atualizaSenha(userPassDTO);
 		return ResponseEntity.noContent().build();
     }
   	
