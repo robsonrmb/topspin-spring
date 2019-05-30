@@ -15,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -84,6 +85,14 @@ public class Usuario implements Serializable {
 	@Column(name = "sx", length = 1)
 	private String sexo;
 	
+	@Column(name = "nome_foto", length = 60)
+	private String nomeFoto;
+	
+	@Lob
+	@Column(name="foto", columnDefinition="BLOB")
+    private byte[] fotografia;
+
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="avaliador")
 	private List<Avaliacao> avaliacoes;
@@ -132,7 +141,7 @@ public class Usuario implements Serializable {
 	}
 	
 	public Usuario(Long id, String nome, String email, String senha, String apelido, Date dataNascimento, String ondeJoga,
-			String tipo, String nivel, String cidade, String estado, String status, String sexo) {
+			String tipo, String nivel, String cidade, String estado, String status, String sexo, String nomeFoto) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -147,6 +156,7 @@ public class Usuario implements Serializable {
 		this.estado = estado;
 		this.status = status;
 		this.sexo = sexo;
+		this.nomeFoto = nomeFoto;
 		addPerfil(Perfil.USUARIO);
 	}
 
@@ -327,6 +337,22 @@ public class Usuario implements Serializable {
 	
 	public void addPerfil(Perfil perfil) {
 		perfis.add(perfil.getCodigo());
+	}
+
+	public byte[] getFotografia() {
+		return fotografia;
+	}
+
+	public void setFotografia(byte[] fotografia) {
+		this.fotografia = fotografia;
+	}
+
+	public String getNomeFoto() {
+		return nomeFoto;
+	}
+
+	public void setNomeFoto(String nomeFoto) {
+		this.nomeFoto = nomeFoto;
 	}
 	
 }

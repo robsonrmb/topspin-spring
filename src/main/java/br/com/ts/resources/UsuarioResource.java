@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.ts.domain.Usuario;
@@ -77,6 +78,12 @@ public class UsuarioResource {
     public ResponseEntity<Void> atualizaSenha(@RequestBody UserPassDTO userPassDTO) {
 		usuarioService.atualizaSenha(userPassDTO);
 		return ResponseEntity.noContent().build();
+    }
+	
+	@PostMapping(value="/{id}/foto")
+	public ResponseEntity<Void> atualizaFotoPerfil(@PathVariable("id") Long id, @RequestParam(name="file") MultipartFile file) {
+		usuarioService.atualizaFotoPerfilS3(id, file); 	//URI uri
+		return ResponseEntity.ok().build(); 			//.created(uri)
     }
   	
   	@PreAuthorize("hasAnyrole('ADMIN')")

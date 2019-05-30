@@ -72,12 +72,12 @@ public class DBService {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		Usuario usu1 = new Usuario(null, "Robson Brito", "robson.rmb@gmail.com", pe.encode("123"), "Robinho", sdf.parse("24/06/1978"), "AABB", "1", "1", "Brasília", "DF", "A", "M");
+		Usuario usu1 = new Usuario(null, "Robson Brito", "robson.rmb@gmail.com", pe.encode("123"), "Robinho", sdf.parse("24/06/1978"), "AABB", "1", "1", "Brasília", "DF", "A", "M", null);
 		usu1.addPerfil(Perfil.ADMIN);
 		
-		Usuario usu2 = new Usuario(null, "Lilian Faria", "lilian.965698@gmail.com", pe.encode("123"), "Lilinha", sdf.parse("30/03/1978"), "AABB", "1", "1", "Goiânia", "GO", "A", "F");
-		Usuario usu3 = new Usuario(null, "Pedro Faria", "pedro@gmail.com", pe.encode("123"), "Pepe", sdf.parse("16/12/2010"), "IATE", "1", "1", "Brasília", "DF", "A", "M");
-		Usuario usu4 = new Usuario(null, "Lucas Brito", "lucas@gmail.com", pe.encode("123"), "Luquibas", sdf.parse("18/09/2014"), "SQA", "1", "1", "Brasília", "DF", "A", "M");
+		Usuario usu2 = new Usuario(null, "Lilian Faria", "lilian.965698@gmail.com", pe.encode("123"), "Lilinha", sdf.parse("30/03/1978"), "AABB", "1", "1", "Goiânia", "GO", "A", "F", null);
+		Usuario usu3 = new Usuario(null, "Pedro Faria", "pedro@gmail.com", pe.encode("123"), "Pepe", sdf.parse("16/12/2010"), "IATE", "1", "1", "Brasília", "DF", "A", "M", null);
+		Usuario usu4 = new Usuario(null, "Lucas Brito", "lucas@gmail.com", pe.encode("123"), "Luquibas", sdf.parse("18/09/2014"), "SQA", "1", "1", "Brasília", "DF", "A", "M", null);
 		usuarioDao.saveAll(Arrays.asList(usu1, usu2, usu3, usu4));
 		
 		Amigo amigo = new Amigo(null, usu1, usu2);
