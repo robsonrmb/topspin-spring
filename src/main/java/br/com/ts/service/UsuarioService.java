@@ -135,7 +135,7 @@ public class UsuarioService {
 	}
 	
 	private String getNomeArquivoFinal(Usuario usuario, MultipartFile file) {
-		return "foto_perfil_" + usuario.getId() + "_" + getPontoExtensao(file);
+		return "foto_perfil_" + usuario.getId() + "_" + getPontoExtensao(file).toLowerCase();
 	}
 
 	private String getPontoExtensao(MultipartFile file) {
