@@ -23,6 +23,7 @@ import br.com.ts.domain.Usuario;
 import br.com.ts.dto.CadastroLoginDTO;
 import br.com.ts.dto.UserPassDTO;
 import br.com.ts.dto.UsuarioAmigoDTO;
+import br.com.ts.service.exception.AuthorizationException;
 import br.com.ts.service.exception.DataIntegrityException;
 import br.com.ts.service.exception.FileException;
 import br.com.ts.service.exception.ObjectNotFoundException;
@@ -89,14 +90,18 @@ public class UsuarioService {
 		usuarioBanco.setSexo(usuarioNovo.getSexo());
 		usuarioBanco.setTipo(usuarioNovo.getTipo());
 		usuarioBanco.setNivel(usuarioNovo.getNivel());
-		usuarioBanco.setSenha(pe.encode(usuarioNovo.getSenha()));
+		//usuarioBanco.setSenha(pe.encode(usuarioNovo.getSenha()));
 	}
 	
 	public void atualizaSenha(UserPassDTO userPassDTO) {
 		Usuario usuarioBanco = usuarioDao.buscaPorEmail(userPassDTO.getEmail());
-		/*if (!pe.encode(userPassDTO.getSenha()).equals(usuarioBanco.getSenha())) {
+		
+		//TODO 
+		//Verificar como decodificar senha ou não exigir senha atual, pois já encontra-se dentro do cadastro.
+		//if (!pe.encode(userPassDTO.getSenha()).equals(pe.usuarioBanco.getSenha())) {
+		if (userPassDTO.getSenha().equals("999")) { //TODO CODIGO FIXO
 			throw new AuthorizationException("Senha atual incorreta.");
-		}*/
+		}
 		RegrasNegocioService.umUsuarioSoPodeAlterarSeuProprioCadastro(usuarioBanco);
 		usuarioBanco.setSenha(pe.encode(userPassDTO.getNovaSenha()));
 		usuarioDao.save(usuarioBanco);

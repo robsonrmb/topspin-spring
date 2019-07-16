@@ -20,6 +20,7 @@ public class UserSS implements UserDetails {
 	
 	private static final long serialVersionUID = 1L;
 
+	//Atributos conforme minha regra de negócio.
 	private Long id;
 	private String email;
 	private String senha;
@@ -48,6 +49,7 @@ public class UserSS implements UserDetails {
 		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
 	}
 
+	// Atributo a mais da minha regra de negócio.
 	public Long getId() {
 		return id;
 	}

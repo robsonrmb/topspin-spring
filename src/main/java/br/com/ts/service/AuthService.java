@@ -1,10 +1,5 @@
 package br.com.ts.service;
 
-import java.math.BigDecimal;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,19 +38,11 @@ public class AuthService {
 			throw new ObjectNotFoundException("Email não encontrado.");
 		}
 		String novaSenha = novaSenha();
+		novaSenha = "123";
 		usuario.setSenha(pe.encode(novaSenha));
 		usuarioDao.save(usuario);
 		
 		emailService.sendNewPasswordEmail(usuario, novaSenha);
-		
-		//TESTE: LIXO
-		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-		BigDecimal valor = new BigDecimal("1700.0");
-		System.out.println(nf.format(valor));
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date dataAtual = new Date();
-		System.out.println(sdf.format(dataAtual));
 	}
 
 	private String novaSenha() {

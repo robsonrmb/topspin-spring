@@ -27,6 +27,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		this.userDetailsService = userDetailsService;
 	}
 	
+	// VALIDANDO SE O TOKEN EXISTE E SE É VÁLIDO.
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
 									HttpServletResponse response,
